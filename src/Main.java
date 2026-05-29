@@ -1,5 +1,7 @@
 import org.lwjgl.glfw.GLFWVidMode;
 import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL11.*;
+import org.lwjgl.opengl.GL;
 
 public class Main {
     public static void main(String[] args) {
@@ -18,8 +20,37 @@ public class Main {
 
         glfwShowWindow(window);
 
+        glfwMakeContextCurrent(window);
+
+        GL.createCapabilities();
+
+        glEnable(GL_TEXTURE_2D);
+
+        Texture tex = new Texture("./assets/test_texture.png");
+
         while (!glfwWindowShouldClose(window)) {
             glfwPollEvents();
+
+            glClear(GL_COLOR_BUFFER_BIT);
+
+            tex.bind();
+
+            glBegin(GL_QUADS);
+                glTexCoord2f(0, 0);
+                glVertex2f(-0.5f, 0.5f);
+
+                glTexCoord2f(1, 0);
+                glVertex2f(0.5f, 0.5f);
+
+                glTexCoord2f(1, 1);
+                glVertex2f(0.5f, -0.5f);
+
+                glTexCoord2f(0, 1);
+                glVertex2f(-0.5f, -0.5f);
+            glEnd();
+
+
+            glfwSwapBuffers(window);
         }
 
         glfwTerminate();
