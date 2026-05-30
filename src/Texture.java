@@ -7,9 +7,9 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 
 public class Texture {
-    private int id;
-    private int width;
-    private int height;
+    private int texID;
+    int width;
+    int height;
 
     public Texture(String filename) {
         BufferedImage bi;
@@ -35,17 +35,17 @@ public class Texture {
 
             pixels.flip();
 
-            id = glGenTextures();
+            texID = glGenTextures();
 
-            glBindTexture(GL_TEXTURE_2D, id);
+            glBindTexture(GL_TEXTURE_2D, texID);
 
             // What happens when texture space is larger? Repeat Image (wrap):
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-            // What happens when texture space is stretched? Stretch Image (nearest = pixelated):
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+            // What happens when texture space is stretched/shrinked? Stretch/Shrink Image (nearest = pixelated):
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); // shrink
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); // stretch
 
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
 
@@ -56,6 +56,9 @@ public class Texture {
     }
 
     public void bind() {
-        glBindTexture(GL_TEXTURE_2D, id);
+        glBindTexture(GL_TEXTURE_2D, texID);
+    }
+    public void unbind() {
+        glBindTexture(GL_TEXTURE_2D, 0);
     }
 }

@@ -28,27 +28,30 @@ public class Main {
 
         Texture tex = new Texture("./assets/test_texture.png");
 
+        Object2D testObject = new Object2D(300,300, 150,150, tex);
+
         while (!glfwWindowShouldClose(window)) {
             glfwPollEvents();
 
             glClear(GL_COLOR_BUFFER_BIT);
 
-            tex.bind();
+//            tex.bind();
+//
+//            glBegin(GL_QUADS);
+//                glTexCoord2f(0, 0);
+//                glVertex2f(-0.5f, 0.5f);
+//
+//                glTexCoord2f(1, 0);
+//                glVertex2f(0.5f, 0.5f);
+//
+//                glTexCoord2f(1, 1);
+//                glVertex2f(0.5f, -0.5f);
+//
+//                glTexCoord2f(0, 1);
+//                glVertex2f(-0.5f, -0.5f);
+//            glEnd();
 
-            glBegin(GL_QUADS);
-                glTexCoord2f(0, 0);
-                glVertex2f(-0.5f, 0.5f);
-
-                glTexCoord2f(1, 0);
-                glVertex2f(0.5f, 0.5f);
-
-                glTexCoord2f(1, 1);
-                glVertex2f(0.5f, -0.5f);
-
-                glTexCoord2f(0, 1);
-                glVertex2f(-0.5f, -0.5f);
-            glEnd();
-
+            testObject.render();
 
             glfwSwapBuffers(window);
         }
