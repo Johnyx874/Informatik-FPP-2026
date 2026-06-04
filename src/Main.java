@@ -44,6 +44,3 @@ public class Main {
         glfwTerminate();
     }
 }
-
-
-// custom "editsfromjohn" branch test

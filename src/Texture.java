@@ -1,4 +1,6 @@
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL13C.GL_TEXTURE0;
+import static org.lwjgl.opengl.GL13C.glActiveTexture;
 import org.lwjgl.BufferUtils;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -18,8 +20,7 @@ public class Texture {
             width = bi.getWidth();
             height = bi.getHeight();
 
-            int[] pixels_raw = new int[width * height * 4]; // 4 for RGBA of each pixel in width * height area
-            pixels_raw = bi.getRGB(0, 0, width, height, null, 0, width);
+            int[] pixels_raw = bi.getRGB(0, 0, width, height, null, 0, width);
 
             ByteBuffer pixels = BufferUtils.createByteBuffer(width * height * 4);
 
@@ -37,6 +38,7 @@ public class Texture {
 
             texID = glGenTextures();
 
+            glActiveTexture(GL_TEXTURE0);
             glBindTexture(GL_TEXTURE_2D, texID);
 
             // What happens when texture space is larger? Repeat Image (wrap):
@@ -48,6 +50,8 @@ public class Texture {
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); // stretch
 
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+
+
 
         }catch(IOException e) {
             e.printStackTrace();

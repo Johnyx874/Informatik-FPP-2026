@@ -20,15 +20,19 @@ public class Shader {
 
         fragmentShader =
                 "#version 330 core\n" +
-                "\n" +
+                "in vec2 v_TexCoord;\n" +
                 "layout(location = 0) out vec4 color;\n" +
-                "\n" +
+                "uniform sampler2D u_Texture;\n" +
                 "void main()\n" +
                 "{\n" +
-                "   color = vec4(0.5, 0.0, 0.0, 1.0);\n" +
+                "   color = texture(u_Texture, v_TexCoord);\n" +
                 "}\n";
 
         shader = createShader(vertexShader, fragmentShader);
+
+        int location = glGetUniformLocation(shader, "u_Texture");
+
+        glUniform1i(location, 0);
 
         glUseProgram(shader);
     }
