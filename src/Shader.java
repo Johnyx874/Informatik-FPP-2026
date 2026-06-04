@@ -72,3 +72,4 @@ public class Shader {
         glDeleteProgram(shader);
     }
 }
+//hiiiiii ich bins trsitan und ich change jetzt stuffff
