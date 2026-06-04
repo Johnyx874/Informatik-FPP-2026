@@ -32,7 +32,7 @@ public class Object2D {
 
         float[] vertices = {
 
-                // Position      // UV
+                // Position            // UV
 
                 x,         y,          0.0f, 0.0f,
                 x+width,   y,          1.0f, 0.0f,
