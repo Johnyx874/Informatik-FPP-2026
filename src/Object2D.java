@@ -2,23 +2,23 @@ import static org.lwjgl.opengl.GL30.*;
 
 public class Object2D {
 
-    protected float x;
-    protected float y;
+    private Vector2 position;
+    private float x;
+    private float y;
 
-    protected float width;
-    protected float height;
+    private float width;
+    private float height;
 
-    protected Texture texture;
+    private Texture texture;
 
-    protected int vao;
-    protected int vbo;
+    private int vao;
+    private int vbo;
 
     public Object2D(float x, float y,
                     float width, float height,
                     Texture texture) {
 
-        this.x = x;
-        this.y = y;
+        this.position = new Vector2(x, y);
 
         this.width = width;
         this.height = height;
@@ -28,7 +28,11 @@ public class Object2D {
         createMesh();
     }
 
-    protected void createMesh() {
+    public Vector2 getPosition() {
+        return position;
+    }
+
+    private void createMesh() {
 
         float[] vertices = {
 
@@ -86,5 +90,20 @@ public class Object2D {
         glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 
         glBindVertexArray(0);
+    }
+
+    public void render(Camera2D camera) {
+
+        // Position relative to camera
+        Vector2 camPos = camera.worldToCamera(position);
+
+        // Parameters to send to shader
+        float renderX = camPos.x;
+        float renderY = camPos.y;
+
+        // example:
+        // shader.setUniform("u_Position", renderX, renderY);
+
+        System.out.println("Rendering at: " + renderX + ", " + renderY);
     }
 }
