@@ -38,11 +38,11 @@ public class Object2D {
 
                 // Position            // UV
 
-                x,         y,          0.0f, 0.0f,
-                x+width,   y,          1.0f, 0.0f,
-                x+width,   y+height,   1.0f, 1.0f,
+                0.0f,    0.0f,          0.0f, 0.0f,
+                width,   0.0f,          1.0f, 0.0f,
+                width,   height,        1.0f, 1.0f,
 
-                x,         y+height,   0.0f, 1.0f
+                0.0f,    height,        0.0f, 1.0f
         };
 
         vao = glGenVertexArrays();
