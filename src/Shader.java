@@ -72,6 +72,21 @@ public class Shader {
         return program;
     }
 
+    public void bind() {
+        glUseProgram(shader);
+    }
+
+    public void unbind() {
+        glUseProgram(0);
+    }
+
+    public void setVec2(String name, float x, float y)
+    {
+        int location = glGetUniformLocation(shader, name);
+
+        glUniform2f(location, x, y);
+    }
+
     public void terminate() {
         glDeleteProgram(shader);
     }

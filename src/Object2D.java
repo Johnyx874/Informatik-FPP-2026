@@ -92,7 +92,7 @@ public class Object2D {
         glBindVertexArray(0);
     }
 
-    public void render(Camera2D camera) {
+    public void render(Camera2D camera, Shader shader) {
 
         // Position relative to camera
         Vector2 camPos = camera.worldToCamera(position);
@@ -101,8 +101,19 @@ public class Object2D {
         float renderX = camPos.x;
         float renderY = camPos.y;
 
-        // example:
-        // shader.setUniform("u_Position", renderX, renderY);
+
+
+        shader.bind();
+
+        glBindVertexArray(vao);
+
+        shader.setVec2("u_Position", renderX, renderY);
+
+        glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+
+        shader.unbind();
+
+        glBindVertexArray(0);
 
         System.out.println("Rendering at: " + renderX + ", " + renderY);
     }
