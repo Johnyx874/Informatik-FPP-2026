@@ -3,8 +3,6 @@ import static org.lwjgl.opengl.GL30.*;
 public class Object2D {
 
     public Vector2 position;
-    private float x;
-    private float y;
 
     private float width;
     private float height;
@@ -14,33 +12,37 @@ public class Object2D {
     public int vao;
     public int vbo;
 
-    public Object2D(float x, float y,
-                    float width, float height, String texPath) {
+    public Object2D(float x, float y, String texPath) {
 
         this.position = new Vector2(x, y);
 
-        this.width = width;
-        this.height = height;
-
         this.texture = new Texture(texPath);
+
+        this.width = texture.width;
+        this.height = texture.height;
 
         createMesh();
     }
 
-    public Vector2 getPosition() {
-        return position;
+    public Object2D(float x, float y, float width, float height, String texPath) {
+
+        this.position = new Vector2(x, y);
+
+        this.texture = new Texture(texPath);
+
+        this.width = width;
+        this.height = height;
+
+        createMesh();
     }
 
     private void createMesh() {
 
         float[] vertices = {
-
                 // Position            // UV
-
                 0.0f,    0.0f,          0.0f, 0.0f,
                 width,   0.0f,          1.0f, 0.0f,
                 width,   height,        1.0f, 1.0f,
-
                 0.0f,    height,        0.0f, 1.0f
         };
 
@@ -80,46 +82,11 @@ public class Object2D {
         glBindVertexArray(0);
     }
 
-    public void render() {
-
-        texture.bind();
-
-        glBindVertexArray(vao);
-
-        glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
-
-        glBindVertexArray(0);
+    public Vector2 getPosition() {
+        return position;
     }
 
-    public void render(Shader shader, Camera2D camera) {
-
-        // Position relative to camera
-        Vector2 camPos = camera.worldToCamera(position);
-
-        // Parameters to send to shader
-        float renderX = camPos.x;
-        float renderY = camPos.y;
-
-
-
-        shader.bind();
-
-            texture.bind();
-
-            glBindVertexArray(vao);
-
-                shader.setVec2("u_ScreenSize", 640, 480);
-
-                shader.setVec2("u_Position", renderX, renderY);
-
-                glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
-
-            glBindVertexArray(0);
-
-            texture.unbind();
-
-        shader.unbind();
-
-        System.out.println("Rendering at: " + renderX + ", " + renderY);
+    public void setPosition(Vector2 position) {
+        this.position = position;
     }
 }

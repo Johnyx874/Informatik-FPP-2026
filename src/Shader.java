@@ -112,10 +112,9 @@ public class Shader {
         glUseProgram(0);
     }
 
-    public void setVec2(String name, float x, float y)
-    {
-        int location = glGetUniformLocation(shader, name);
+    public void setVec2(String name, float x, float y) {
 
+        int location = glGetUniformLocation(shader, name);
         glUniform2f(location, x, y);
     }
 
@@ -123,4 +122,3 @@ public class Shader {
         glDeleteProgram(shader);
     }
 }
-//hiiiiii ich bins trsitan und ich change jetzt stuffff

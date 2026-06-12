@@ -14,9 +14,9 @@ public class Texture {
     int height;
 
     public Texture(String filename) {
-        BufferedImage bi;
         try {
-            bi = ImageIO.read(new File(filename));
+            BufferedImage bi = ImageIO.read(new File(filename));
+            if (bi == null) { throw new RuntimeException("Invalid image format: " + filename); }
             width = bi.getWidth();
             height = bi.getHeight();
 
@@ -54,7 +54,7 @@ public class Texture {
 
 
         }catch(IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Failed to load texture: " + filename);
         }
 
     }

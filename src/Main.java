@@ -1,5 +1,7 @@
 import javax.swing.*;
 
+import java.util.ArrayList;
+
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
@@ -7,13 +9,18 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Window window = new Window(640, 480);
+        Window window = new Window(1280, 720);
         Shader shader = new Shader();
         Camera2D camera = new Camera2D(0, 0);
         Renderer2D renderer = new Renderer2D(window, shader, camera);
 
+        ArrayList<Object2D> allObject2D = new ArrayList<>();
+
         Object2D Purpur = new Object2D(50,50, 100,100, "./assets/purpur.png");
-        Object2D Background = new Object2D(0,0, 1000,1000, "./assets/background.png");
+        Object2D Background = new Object2D(0,0, "./assets/background.png");
+
+        allObject2D.add(Background);
+        allObject2D.add(Purpur);
 
         float playerSpeed = 1f;
         float camSpeed = 10f;
@@ -56,9 +63,7 @@ public class Main {
                 camera.position.y += camSpeed;
             }
 
-            renderer.render(Background);
-
-            renderer.render(Purpur);
+            renderer.renderAllObjects(allObject2D);
 
             glfwSwapBuffers(window.window);
         }

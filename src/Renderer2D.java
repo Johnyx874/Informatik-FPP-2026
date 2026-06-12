@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import static org.lwjgl.opengl.GL11.GL_TRIANGLE_FAN;
 import static org.lwjgl.opengl.GL11.glDrawArrays;
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
@@ -12,6 +14,12 @@ public class Renderer2D {
         this.window = window;
         this.shader = shader;
         this.camera = camera;
+    }
+
+    public void renderAllObjects(ArrayList<Object2D> objects) {
+        for (Object2D obj : objects) {
+            render(obj);
+        }
     }
 
     public void render(Object2D object) {
