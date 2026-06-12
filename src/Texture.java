@@ -57,6 +57,7 @@ public class Texture {
             throw new RuntimeException("Failed to load texture: " + filename);
         }
 
+        System.out.println("Texture loaded: " + filename);
     }
 
     public void bind() {

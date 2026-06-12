@@ -22,6 +22,8 @@ public class Object2D {
         this.height = texture.height;
 
         createMesh();
+
+        System.out.println("Object2D created!");
     }
 
     public Object2D(float x, float y, float width, float height, String texPath) {
@@ -34,6 +36,8 @@ public class Object2D {
         this.height = height;
 
         createMesh();
+
+        System.out.println("Object2D created!");
     }
 
     private void createMesh() {
@@ -89,4 +93,6 @@ public class Object2D {
     public void setPosition(Vector2 position) {
         this.position = position;
     }
+
+    public void update() {}
 }

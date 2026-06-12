@@ -59,6 +59,8 @@ public class Shader {
         int location = glGetUniformLocation(shader, "u_Texture");
 
         glUniform1i(location, 0);
+
+        System.out.println("Shader created!");
     }
 
     int compileShader(int type, String source) {

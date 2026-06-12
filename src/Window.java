@@ -41,5 +41,6 @@ public class Window {
 
         glEnable(GL_TEXTURE_2D);
 
+        System.out.println("Window created!");
     }
 }

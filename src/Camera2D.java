@@ -7,6 +7,8 @@ public class Camera2D {
 
     public Camera2D(float x, float y) {
         this.position = new Vector2(x, y);
+
+        System.out.println("Camera2D created!");
     }
 
     public Vector2 getPosition() {
