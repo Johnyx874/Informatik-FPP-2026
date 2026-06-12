@@ -4,15 +4,19 @@ public class Object2D {
 
     public Vector2 position;
 
-    private float width;
-    private float height;
+    public float width;
+    public float height;
+
+    public String name;
 
     public Texture texture;
 
     public int vao;
     public int vbo;
 
-    public Object2D(float x, float y, String texPath) {
+    public Object2D(String name, float x, float y, String texPath) {
+
+        this.name = name;
 
         this.position = new Vector2(x, y);
 
@@ -26,7 +30,9 @@ public class Object2D {
         System.out.println("Object2D created!");
     }
 
-    public Object2D(float x, float y, float width, float height, String texPath) {
+    public Object2D(String name, float x, float y, float width, float height, String texPath) {
+
+        this.name = name;
 
         this.position = new Vector2(x, y);
 

@@ -15,15 +15,19 @@ public class Main {
         Renderer2D renderer = new Renderer2D(window, shader, camera);
         Mouse mouse = new Mouse();
 
+        Collision collision = new Collision();
+
         ArrayList<Object2D> allObject2D = new ArrayList<>();
 
-        Object2D Purpur = new Object2D(50,50, 100,100, "./assets/purpur.png");
-        Object2D Background = new Object2D(0,0, "./assets/background.png");
-        Object2D Test = new Object2D(0,0,10,10, "./assets/test_texture.png");
+        Object2D Purpur = new Object2D("Purpur", 50,50, 50,100, "./assets/purpur.png");
+        Object2D Background = new Object2D("BG", 0,0, "./assets/background.png");
+        Object2D Test = new Object2D("Test", 500,500,150,150, "./assets/test_texture.png");
+        Object2D Test2 = new Object2D("test2", -150,-150, 50,50, "./assets/test_texture.png");
 
-        allObject2D.add(Background);
+        //allObject2D.add(Background);
         allObject2D.add(Purpur);
         allObject2D.add(Test);
+        allObject2D.add(Test2);
 
         float playerSpeed = 1f;
         float camSpeed = 2.5f;
@@ -66,11 +70,13 @@ public class Main {
                 camera.position.y += camSpeed;
             }
 
-            Test.position = Purpur.position;
+            //Test.position = Purpur.position;
 
             mouse.update(window.window, camera);
 
             Purpur.update(mouse);
+
+            collision.check(allObject2D);
 
             renderer.renderAllObjects(allObject2D);
 
