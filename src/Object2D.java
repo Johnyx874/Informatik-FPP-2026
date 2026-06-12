@@ -9,21 +9,20 @@ public class Object2D {
     private float width;
     private float height;
 
-    private Texture texture;
+    public Texture texture;
 
-    private int vao;
-    private int vbo;
+    public int vao;
+    public int vbo;
 
     public Object2D(float x, float y,
-                    float width, float height,
-                    Texture texture) {
+                    float width, float height, String texPath) {
 
         this.position = new Vector2(x, y);
 
         this.width = width;
         this.height = height;
 
-        this.texture = texture;
+        this.texture = new Texture(texPath);
 
         createMesh();
     }
@@ -105,6 +104,8 @@ public class Object2D {
 
         shader.bind();
 
+            texture.bind();
+
             glBindVertexArray(vao);
 
                 shader.setVec2("u_ScreenSize", 640, 480);
@@ -114,6 +115,8 @@ public class Object2D {
                 glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 
             glBindVertexArray(0);
+
+            texture.unbind();
 
         shader.unbind();
 
