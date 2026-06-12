@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="lwjgl-stb">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/library/LWJGL 3/lwjgl-stb/lwjgl-stb.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/LWJGL 3/lwjgl-stb/lwjgl-stb-natives-linux.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/LWJGL 3/lwjgl-stb/lwjgl-stb-natives-macos.jar!/" />
+      <root url="jar://$PROJECT_DIR$/library/LWJGL 3/lwjgl-stb/lwjgl-stb-natives-windows.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
