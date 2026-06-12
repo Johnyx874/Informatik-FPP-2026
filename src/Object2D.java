@@ -2,7 +2,7 @@ import static org.lwjgl.opengl.GL30.*;
 
 public class Object2D {
 
-    private Vector2 position;
+    public Vector2 position;
     private float x;
     private float y;
 
@@ -92,7 +92,7 @@ public class Object2D {
         glBindVertexArray(0);
     }
 
-    public void render(Camera2D camera, Shader shader) {
+    public void render(Shader shader, Camera2D camera) {
 
         // Position relative to camera
         Vector2 camPos = camera.worldToCamera(position);
@@ -105,15 +105,17 @@ public class Object2D {
 
         shader.bind();
 
-        glBindVertexArray(vao);
+            glBindVertexArray(vao);
 
-        shader.setVec2("u_Position", renderX, renderY);
+                shader.setVec2("u_ScreenSize", 640, 480);
 
-        glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+                shader.setVec2("u_Position", renderX, renderY);
+
+                glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+
+            glBindVertexArray(0);
 
         shader.unbind();
-
-        glBindVertexArray(0);
 
         System.out.println("Rendering at: " + renderX + ", " + renderY);
     }

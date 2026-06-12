@@ -1,14 +1,13 @@
 public class Camera2D {
 
-    private Vector2 position;
+    public Vector2 position;
 
     private float width;
     private float height;
 
-    public Camera2D(float x, float y, float width, float height) {
+    public Camera2D(float x, float y) {
         this.position = new Vector2(x, y);
-        this.width = width;
-        this.height = height;
+
     }
 
     public Vector2 getPosition() {

@@ -33,6 +33,8 @@ public class Window {
 
         GL.createCapabilities();
 
+        glViewport(0, 0, width, height);
+
         glEnable(GL_TEXTURE_2D);
 
     }
