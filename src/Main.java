@@ -13,17 +13,20 @@ public class Main {
         Shader shader = new Shader();
         Camera2D camera = new Camera2D(0, 0);
         Renderer2D renderer = new Renderer2D(window, shader, camera);
+        Mouse mouse = new Mouse();
 
         ArrayList<Object2D> allObject2D = new ArrayList<>();
 
         Object2D Purpur = new Object2D(50,50, 100,100, "./assets/purpur.png");
         Object2D Background = new Object2D(0,0, "./assets/background.png");
+        Object2D Test = new Object2D(0,0,10,10, "./assets/test_texture.png");
 
         allObject2D.add(Background);
         allObject2D.add(Purpur);
+        allObject2D.add(Test);
 
         float playerSpeed = 1f;
-        float camSpeed = 10f;
+        float camSpeed = 2.5f;
 
         while (!glfwWindowShouldClose(window.window)) {
             glfwPollEvents();
@@ -62,6 +65,12 @@ public class Main {
             if (glfwGetKey(window.window, GLFW_KEY_S) == GLFW_PRESS) {
                 camera.position.y += camSpeed;
             }
+
+            Test.position = Purpur.position;
+
+            mouse.update(window.window, camera);
+
+            Purpur.update(mouse);
 
             renderer.renderAllObjects(allObject2D);
 

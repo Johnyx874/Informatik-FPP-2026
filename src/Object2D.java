@@ -94,5 +94,21 @@ public class Object2D {
         this.position = position;
     }
 
-    public void update() {}
+    public void update(Mouse mouse) {
+
+        if (mouse.position.x > position.x && mouse.position.x < position.x + width
+            && mouse.position.y > position.y && mouse.position.y < position.y + height) {
+
+            if (mouse.leftPressed) {
+                this.position.x += 150f;
+                System.out.println("Object2D was left-clicked!");
+            }
+
+            if (mouse.rightPressed) {
+                this.position.x -= 150f;
+                System.out.println("Object2D was right-clicked!");
+            }
+        }
+
+    }
 }
