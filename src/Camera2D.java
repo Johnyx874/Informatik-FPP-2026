@@ -2,8 +2,8 @@ public class Camera2D {
 
     public Vector2 position;
 
-    private float width;
-    private float height;
+    public float width;
+    public float height;
 
     public Camera2D(float x, float y) {
         this.position = new Vector2(x, y);

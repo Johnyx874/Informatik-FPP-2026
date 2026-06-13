@@ -100,21 +100,29 @@ public class Object2D {
         this.position = position;
     }
 
-    public void update(Mouse mouse) {
+    boolean clicked = false;
+    public void checkClicked(Mouse mouse) {
 
-        if (mouse.position.x > position.x && mouse.position.x < position.x + width
-            && mouse.position.y > position.y && mouse.position.y < position.y + height) {
+        if (!mouse.leftPressed && !mouse.rightPressed) {clicked = false;}
 
-            if (mouse.leftPressed) {
-                this.position.x += 150f;
+        boolean hovering =
+            mouse.position.x > position.x &&
+            mouse.position.x < position.x + width &&
+            mouse.position.y > position.y &&
+            mouse.position.y < position.y + height;
+
+        if (hovering) {
+            if (mouse.leftPressed && !clicked) {
+                position.y += 10f;
+                clicked = true;
                 System.out.println("Object2D was left-clicked!");
             }
-
-            if (mouse.rightPressed) {
-                this.position.x -= 150f;
-                System.out.println("Object2D was right-clicked!");
+            if (mouse.rightPressed && !clicked) {
+                position.y -= 10f;
+                clicked = true;
+                System.out.println("    Object2D was right-clicked!");
             }
         }
-
     }
+
 }
