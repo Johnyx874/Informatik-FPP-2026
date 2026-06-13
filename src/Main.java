@@ -25,6 +25,8 @@ public class Main {
         Object2D Test = new Object2D("Test", 500,500,150,150, "./assets/test_texture.png");
         Object2D Test2 = new Object2D("test2", -150,-150, 50,50, "./assets/test_texture.png");
 
+        ObjectGUI Button = new ObjectGUI("Button", 50, 300, 100, 100, "./assets/button.gif" );
+
         allObject2D.add(Background);
         allObject2D.add(Purpur);
         allObject2D.add(Test);
@@ -82,9 +84,13 @@ public class Main {
 
             Purpur.checkClicked(mouse);
 
+            Button.checkClicked(mouse);
+
             collision.check(allCollisionObject);
 
-            renderer.renderAllObjects(allObject2D);
+            renderer.renderAllObject2D(allObject2D);
+
+            renderer.renderObjectGUI(Button);
 
             glfwSwapBuffers(window.window);
         }

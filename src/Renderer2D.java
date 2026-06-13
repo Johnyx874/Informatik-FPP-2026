@@ -18,13 +18,13 @@ public class Renderer2D {
         System.out.println("Renderer2D created!");
     }
 
-    public void renderAllObjects(ArrayList<Object2D> objects) {
+    public void renderAllObject2D(ArrayList<Object2D> objects) {
         for (Object2D obj : objects) {
-            render(obj);
+            renderObject2D(obj);
         }
     }
 
-    public void render(Object2D object) {
+    public void renderObject2D(Object2D object) {
 
         // Position relative to camera
         Vector2 camPos = camera.worldToCamera(object.position);
@@ -32,6 +32,37 @@ public class Renderer2D {
         // Parameters to send to shader
         float renderX = camPos.x;
         float renderY = camPos.y;
+
+        shader.bind();
+
+            object.texture.bind();
+
+            glBindVertexArray(object.vao);
+
+                shader.setVec2("u_ScreenSize", window.width, window.height);
+
+                shader.setVec2("u_Position", renderX, renderY);
+
+                glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+
+            glBindVertexArray(0);
+
+            object.texture.unbind();
+
+        shader.unbind();
+    }
+
+    public void renderAllObjectGUI(ArrayList<ObjectGUI> objects) {
+        for (ObjectGUI obj : objects) {
+            renderObjectGUI(obj);
+        }
+    }
+
+    public void renderObjectGUI(ObjectGUI object) {
+
+        // Parameters to send to shader
+        float renderX = object.position.x;
+        float renderY = object.position.y;
 
         shader.bind();
 
