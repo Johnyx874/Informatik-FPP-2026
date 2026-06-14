@@ -30,6 +30,22 @@ public class ObjectGUI {
         System.out.println("Object2D created!");
     }
 
+    public ObjectGUI(String name, float x, float y, float scale, String texPath) {
+
+        this.name = name;
+
+        this.position = new Vector2(x, y);
+
+        this.texture = new Texture(texPath);
+
+        this.width = texture.width * scale;
+        this.height = texture.height * scale;
+
+        createMesh();
+
+        System.out.println("Object2D created!");
+    }
+
     public ObjectGUI(String name, float x, float y, float width, float height, String texPath) {
 
         this.name = name;
