@@ -9,7 +9,7 @@ public class Main {
 
         Window window = new Window(1280, 720);
         Shader shader = new Shader();
-        Camera2D camera = new Camera2D(1000, 1000);
+        Camera2D camera = new Camera2D(0, 0);
         Renderer2D renderer = new Renderer2D(window, shader, camera);
         Mouse mouse = new Mouse();
 
@@ -23,7 +23,7 @@ public class Main {
         Object2D Test = new Object2D("Test", 500,500,150,150, "./assets/test_texture.png");
         Object2D Test2 = new Object2D("test2", -150,-150, 50,50, "./assets/test_texture.png");
 
-        Station station = new Station(1000,1000);
+        //Station station = new Station(1000,1000);
 
         ObjectGUI Button = new ObjectGUI("Button", 50, 300, 100, 100, "./assets/button.gif" );
 
@@ -84,17 +84,17 @@ public class Main {
 
             Purpur.checkClicked(mouse);
 
-            station.update(window);
+            //station.update(window);
 
             Button.checkClicked(mouse);
 
             collision.check(allCollisionObject);
 
-            renderer.renderAllObject2D(allObject2D);
+            renderer.renderObject(allObject2D);
 
-            renderer.renderAllObject2D(station.allStationParts);
+            //renderer.renderObject(station.allStationParts);
 
-            renderer.renderObjectGUI(Button);
+            renderer.renderGUI(Button);
 
             glfwSwapBuffers(window.window);
         }

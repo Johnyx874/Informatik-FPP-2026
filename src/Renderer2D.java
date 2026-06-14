@@ -18,13 +18,13 @@ public class Renderer2D {
         System.out.println("Renderer2D created!");
     }
 
-    public void renderAllObject2D(ArrayList<Object2D> objects) {
+    public void renderObject(ArrayList<Object2D> objects) {
         for (Object2D obj : objects) {
-            renderObject2D(obj);
+            renderObject(obj);
         }
     }
 
-    public void renderObject2D(Object2D object) {
+    public void renderObject(Object2D object) {
 
         // Position relative to camera
         Vector2 camPos = camera.worldToCamera(object.position);
@@ -52,13 +52,13 @@ public class Renderer2D {
         shader.unbind();
     }
 
-    public void renderAllObjectGUI(ArrayList<ObjectGUI> objects) {
+    public void renderGUI(ArrayList<ObjectGUI> objects) {
         for (ObjectGUI obj : objects) {
-            renderObjectGUI(obj);
+            renderGUI(obj);
         }
     }
 
-    public void renderObjectGUI(ObjectGUI object) {
+    public void renderGUI(ObjectGUI object) {
 
         // Parameters to send to shader
         float renderX = object.position.x;
