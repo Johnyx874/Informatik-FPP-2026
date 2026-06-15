@@ -18,10 +18,10 @@ public class Main {
         ArrayList<Object2D> allObject2D = new ArrayList<>();
         ArrayList<Object2D> allCollisionObject = new ArrayList<>();
 
-        Object2D Purpur = new Object2D("Purpur", 50,50, 100,100, "./assets/purpur.png");
-        Object2D Background = new Object2D("BG", 0,0, 0.5f, "./assets/background.png");
-        Object2D Test = new Object2D("Test", 500,500,150,150, "./assets/test_texture.png");
-        Object2D Test2 = new Object2D("test2", -150,-150, 50,50, "./assets/test_texture.png");
+        Object2D Purpur = new Object2D("Purpur", false, 50,50, 100,100, "./assets/purpur.png");
+        Object2D Background = new Object2D("BG", true,0,0, 0.5f, "./assets/background.png");
+        Object2D Test = new Object2D("Test", false, 0,-150,100,100, "./assets/box.png");
+        Object2D Test2 = new Object2D("test2", true, -150,0, 150,150, "./assets/box.png");
 
         //Station station = new Station(1000,1000);
 
@@ -36,8 +36,8 @@ public class Main {
         allCollisionObject.add(Test);
         allCollisionObject.add(Test2);
 
-        float playerSpeed = 2f;
-        float camSpeed = 2.5f;
+        float playerSpeed = 0.5f;
+        float camSpeed = 1f;
 
         while (!glfwWindowShouldClose(window.window)) {
             glfwPollEvents();
