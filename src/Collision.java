@@ -2,19 +2,17 @@ import java.util.ArrayList;
 
 public class Collision {
 
-    boolean separated;
-
-    public void check(ArrayList<Object2D> objects) {
+    public void check(ArrayList<PhysicsObject> objects) {
 
         for (int i = 0; i < objects.size(); i++) {
 
-            Object2D a = objects.get(i);
+            Collider a = objects.get(i).collider;
 
             for (int j = i + 1; j < objects.size(); j++) {
 
-                Object2D b = objects.get(j);
+                Collider b = objects.get(j).collider;
 
-                separated =
+                boolean separated =
                         (a.position.x + a.width  < b.position.x) ||
                         (a.position.x > b.position.x + b.width) ||
                         (a.position.y + a.height < b.position.y) ||
@@ -23,7 +21,7 @@ public class Collision {
                 if (!separated) {
 
                     System.out.println(
-                            a.name + " collides with " + b.name
+                            objects.get(i).name + " collides with " + objects.get(j).name
                     );
 
                     resolveCollision(a, b);
@@ -32,104 +30,100 @@ public class Collision {
         }
     }
 
-    public void resolveCollision(Object2D a, Object2D b) {
+    public void resolveCollision(Collider a, Collider b) {
 
-        if (!separated) {
+        float overlapX =
+                Math.min(
+                a.position.x + a.width,
+                b.position.x + b.width
+                )
+                -
+                Math.max(
+                a.position.x,
+                b.position.x
+                );
 
-            float overlapX =
-                    Math.min(
-                    a.position.x + a.width,
-                    b.position.x + b.width
-                    )
-                    -
-                    Math.max(
-                    a.position.x,
-                    b.position.x
-                    );
-
-            float overlapY =
-                    Math.min(
-                    a.position.y + a.height,
-                    b.position.y + b.height
-                    )
-                    -
-                    Math.max(
-                            a.position.y,
-                            b.position.y
-                    );
+        float overlapY =
+                Math.min(
+                a.position.y + a.height,
+                b.position.y + b.height
+                )
+                -
+                Math.max(
+                        a.position.y,
+                        b.position.y
+                );
 
 
-            //Resolve along smallest overlap axis
+        //Resolve along smallest overlap axis
 
-            if (overlapX < overlapY) {
+        if (overlapX < overlapY) {
 
-                // Resolve X
+            // Resolve X
 
-                if (a.position.x < b.position.x) {
+            if (a.position.x < b.position.x) {
 
-                    // a is left of b
-                    if (!a.isStatic && b.isStatic) {
-                        a.position.x -= overlapX;
-                    }
-                    else if (a.isStatic && !b.isStatic) {
-                        b.position.x += overlapX;
-                    }
-                    else {
-                        a.position.x -= overlapX / 2f;
-                        b.position.x += overlapX / 2f;
-                    }
+                // a is left of b
+                if (a.isDynamic && !b.isDynamic) {
+                    a.owner.position.x -= overlapX;
+                }
+                else if (!a.isDynamic && b.isDynamic) {
+                    b.owner.position.x += overlapX;
                 }
                 else {
-
-                    // a is right of b
-                    if (!a.isStatic && b.isStatic) {
-                        a.position.x += overlapX;
-                    }
-                    else if (a.isStatic && !b.isStatic) {
-                        b.position.x -= overlapX;
-                    }
-                    else {
-                        a.position.x += overlapX / 2f;
-                        b.position.x -= overlapX / 2f;
-                    }
+                    a.owner.position.x -= overlapX / 2f;
+                    b.owner.position.x += overlapX / 2f;
                 }
-
             }
             else {
 
-                // Resolve Y
-
-                if (a.position.y < b.position.y) {
-
-                    // a is above b
-                    if (!a.isStatic && b.isStatic) {
-                        a.position.y -= overlapY;
-                    }
-                    else if (a.isStatic && !b.isStatic) {
-                        b.position.y += overlapY;
-                    }
-                    else {
-                        a.position.y -= overlapY / 2f;
-                        b.position.y += overlapY / 2f;
-                    }
+                // a is right of b
+                if (a.isDynamic && !b.isDynamic) {
+                    a.owner.position.x += overlapX;
+                }
+                else if (!a.isDynamic && b.isDynamic) {
+                    b.owner.position.x -= overlapX;
                 }
                 else {
+                    a.owner.position.x += overlapX / 2f;
+                    b.owner.position.x -= overlapX / 2f;
+                }
+            }
 
-                    // a is below b
-                    if (!a.isStatic && b.isStatic) {
-                        a.position.y += overlapY;
-                    }
-                    else if (a.isStatic && !b.isStatic) {
-                        b.position.y -= overlapY;
-                    }
-                    else {
-                        a.position.y += overlapY / 2f;
-                        b.position.y -= overlapY / 2f;
-                    }
+        }
+        else {
+
+            // Resolve Y
+
+            if (a.position.y < b.position.y) {
+
+                // a is above b
+                if (a.isDynamic && !b.isDynamic) {
+                    a.owner.position.y -= overlapY;
+                }
+                else if (!a.isDynamic && b.isDynamic) {
+                    b.owner.position.y += overlapY;
+                }
+                else {
+                    a.owner.position.y -= overlapY / 2f;
+                    b.owner.position.y += overlapY / 2f;
+                }
+            }
+            else {
+
+                // a is below b
+                if (a.isDynamic && !b.isDynamic) {
+                    a.owner.position.y += overlapY;
+                }
+                else if (!a.isDynamic && b.isDynamic) {
+                    b.owner.position.y -= overlapY;
+                }
+                else {
+                    a.owner.position.y += overlapY / 2f;
+                    b.owner.position.y -= overlapY / 2f;
                 }
             }
         }
-
     }
 
 }

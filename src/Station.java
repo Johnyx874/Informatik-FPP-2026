@@ -23,15 +23,15 @@ public class Station {
 
         size = 150f;
 
-        StationCore = new Object2D("Station Core", true, this.position.x, this.position.y,
+        StationCore = new Object2D("Station Core", this.position.x, this.position.y,
                 size, size, "./assets/station/station_core.png" );
-        StationTop = new Object2D("Station Top", true, this.position.x, this.position.y,
+        StationTop = new Object2D("Station Top", this.position.x, this.position.y,
                 size, size, "./assets/station/station_top.png" );
-        StationLeft = new Object2D("Station Left", true, this.position.x, this.position.y,
+        StationLeft = new Object2D("Station Left", this.position.x, this.position.y,
                 size, size, "./assets/station/station_left.png" );
-        StationBottom = new Object2D("Station Bottom", true, this.position.x, this.position.y,
+        StationBottom = new Object2D("Station Bottom", this.position.x, this.position.y,
                 size, size, "./assets/station/station_bottom.png" );
-        StationRight = new Object2D("Station Right", true, this.position.x, this.position.y,
+        StationRight = new Object2D("Station Right", this.position.x, this.position.y,
                 size, size, "./assets/station/station_right.png" );
 
         allStationParts.add(StationCore);

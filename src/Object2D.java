@@ -7,8 +7,6 @@ public class Object2D {
     public float width;
     public float height;
 
-    public boolean isStatic;
-
     public String name;
 
     public Texture texture;
@@ -16,11 +14,9 @@ public class Object2D {
     public int vao;
     public int vbo;
 
-    public Object2D(String name, boolean isStatic, float x, float y, String texPath) {
+    public Object2D(String name, float x, float y, String texPath) {
 
         this.name = name;
-
-        this.isStatic = isStatic;
 
         this.position = new Vector2(x, y);
 
@@ -31,14 +27,12 @@ public class Object2D {
 
         createMesh();
 
-        System.out.println("Object2D created!");
+        System.out.println("Object2D " + this.name + " created!");
     }
 
-    public Object2D(String name, boolean isStatic, float x, float y, float scale, String texPath) {
+    public Object2D(String name, float x, float y, float scale, String texPath) {
 
         this.name = name;
-
-        this.isStatic = isStatic;
 
         this.position = new Vector2(x, y);
 
@@ -49,14 +43,12 @@ public class Object2D {
 
         createMesh();
 
-        System.out.println("Object2D created!");
+        System.out.println("Object2D " + this.name + " created!");
     }
 
-    public Object2D(String name, boolean isStatic, float x, float y, float width, float height, String texPath) {
+    public Object2D(String name, float x, float y, float width, float height, String texPath) {
 
         this.name = name;
-
-        this.isStatic = isStatic;
 
         this.position = new Vector2(x, y);
 
@@ -67,7 +59,7 @@ public class Object2D {
 
         createMesh();
 
-        System.out.println("Object2D created!");
+        System.out.println("Object2D " + this.name + " created!");
     }
 
     private void createMesh() {
@@ -148,5 +140,7 @@ public class Object2D {
             }
         }
     }
+
+    public void update() {}
 
 }

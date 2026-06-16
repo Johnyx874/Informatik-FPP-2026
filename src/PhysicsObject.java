@@ -1,25 +1,31 @@
 
-/*
+
 public class PhysicsObject extends Object2D {
 
-    public boolean isStatic;
+    public Collider collider;
 
-    public PhysicsObject(String name, boolean isStatic, float x, float y, float width, float height, String texPath) {
+    public PhysicsObject(String name, float x, float y, float width, float height, String texPath) {
 
-        this.name = name;
+        super(name, x, y, width, height, texPath);
 
-        this.isStatic = isStatic;
-
-        this.position = new Vector2(x, y);
-
-        this.width = width;
-        this.height = height;
-
-        this.texture = new Texture(texPath);
-
-        createMesh();
-
-        System.out.println("Object2D created!");
+        this.collider = new Collider(this, x, y, width, height, false);
     }
+
+    public void setCollider(boolean isDynamic) {
+        collider.isDynamic = isDynamic;
+    }
+
+    public void setCollider(boolean isDynamic, float width, float height) {
+        collider.width = width;
+        collider.height = height;
+        collider.isDynamic = isDynamic;
+    }
+
+    @Override
+    public void update() {
+        collider.update(this.position);
+    }
+
+
+
 }
-*/

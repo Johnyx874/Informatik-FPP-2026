@@ -16,28 +16,36 @@ public class Main {
         Collision collision = new Collision();
 
         ArrayList<Object2D> allObject2D = new ArrayList<>();
-        ArrayList<Object2D> allCollisionObject = new ArrayList<>();
+        ArrayList<PhysicsObject> allPhysicsObject = new ArrayList<>();
 
-        Object2D Purpur = new Object2D("Purpur", false, 50,50, 100,100, "./assets/purpur.png");
-        Object2D Background = new Object2D("BG", true,0,0, 0.5f, "./assets/background.png");
-        Object2D Test = new Object2D("Test", false, 0,-150,100,100, "./assets/box.png");
-        Object2D Test2 = new Object2D("test2", true, -150,0, 150,150, "./assets/box.png");
+        Object2D Background = new Object2D
+                ("BG",0,0, 0.5f, "./assets/background.png");
+                allObject2D.add(Background);
+
+        PhysicsObject Purpur = new PhysicsObject
+                ("Purpur", 50,50, 100,100, "./assets/purpur.png");
+                Purpur.setCollider(true);
+                allObject2D.add(Purpur);
+                allPhysicsObject.add(Purpur);
+
+        PhysicsObject Test = new PhysicsObject
+                ("Test", 0,-150,100,100, "./assets/box.png");
+                Test.setCollider(true);
+                allObject2D.add(Test);
+                allPhysicsObject.add(Test);
+
+        PhysicsObject Test2 = new PhysicsObject
+                ("test2", -150,0, 150,150, "./assets/box.png");
+                Test2.setCollider(false, 100, 100);
+                allObject2D.add(Test2);
+                allPhysicsObject.add(Test2);
 
         //Station station = new Station(1000,1000);
 
         ObjectGUI Button = new ObjectGUI("Button", 50, 300, 100, 100, "./assets/button.gif" );
 
-        allObject2D.add(Background);
-        allObject2D.add(Purpur);
-        allObject2D.add(Test);
-        allObject2D.add(Test2);
-
-        allCollisionObject.add(Purpur);
-        allCollisionObject.add(Test);
-        allCollisionObject.add(Test2);
-
-        float playerSpeed = 0.5f;
-        float camSpeed = 1f;
+        float playerSpeed = 1.5f;
+        float camSpeed = 3f;
 
         while (!glfwWindowShouldClose(window.window)) {
             glfwPollEvents();
@@ -82,13 +90,24 @@ public class Main {
 
             mouse.update(window.window, camera);
 
+
+            for (Object2D object2D : allObject2D) {
+                object2D.update();
+            }
+
+            /*
+            Purpur.update();
+            Test.update();
+            Test2.update();
+            */
+
             Purpur.checkClicked(mouse);
 
             //station.update(window);
 
             Button.checkClicked(mouse);
 
-            collision.check(allCollisionObject);
+            collision.check(allPhysicsObject);
 
             renderer.renderObject(allObject2D);
 
