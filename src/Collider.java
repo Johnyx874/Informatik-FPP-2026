@@ -9,6 +9,7 @@ public class Collider {
     float height;
 
     boolean isDynamic;
+    boolean isGhost;
 
     Collider(PhysicsObject owner, float x, float y, float width, float height, boolean isDynamic) {
 
@@ -18,6 +19,7 @@ public class Collider {
         this.width = width;
         this.height = height;
         this.isDynamic = isDynamic;
+        this.isGhost = false;
 
     }
 

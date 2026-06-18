@@ -11,7 +11,7 @@ public class Main {
         Shader shader = new Shader();
         Camera2D camera = new Camera2D(0, 0);
         Renderer2D renderer = new Renderer2D(window, shader, camera);
-        Mouse mouse = new Mouse();
+        Input input = new Input();
 
         Collision collision = new Collision();
 
@@ -52,62 +52,52 @@ public class Main {
 
             glClear(GL_COLOR_BUFFER_BIT);
 
-            if (glfwGetKey(window.window, GLFW_KEY_A) == GLFW_PRESS) {
+            if (input.pressed(GLFW_KEY_A)) {
                 Purpur.position.x -= playerSpeed;
             }
 
-            if (glfwGetKey(window.window, GLFW_KEY_D) == GLFW_PRESS) {
+            if (input.pressed(GLFW_KEY_D)) {
                 Purpur.position.x += playerSpeed;
             }
 
-            if (glfwGetKey(window.window, GLFW_KEY_W) == GLFW_PRESS) {
+            if (input.pressed(GLFW_KEY_W)) {
                 Purpur.position.y -= playerSpeed;
             }
 
-            if (glfwGetKey(window.window, GLFW_KEY_S) == GLFW_PRESS) {
+            if (input.pressed(GLFW_KEY_S)) {
                 Purpur.position.y += playerSpeed;
             }
 
 
-            if (glfwGetKey(window.window, GLFW_KEY_LEFT) == GLFW_PRESS) {
+            if (input.pressed(GLFW_KEY_LEFT)) {
                 camera.position.x -= camSpeed;
             }
 
-            if (glfwGetKey(window.window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
+            if (input.pressed(GLFW_KEY_RIGHT)) {
                 camera.position.x += camSpeed;
             }
 
-            if (glfwGetKey(window.window, GLFW_KEY_UP) == GLFW_PRESS) {
+            if (input.pressed(GLFW_KEY_UP)) {
                 camera.position.y -= camSpeed;
             }
 
-            if (glfwGetKey(window.window, GLFW_KEY_DOWN) == GLFW_PRESS) {
+            if (input.pressed(GLFW_KEY_DOWN)) {
                 camera.position.y += camSpeed;
             }
 
             //camera.position.x = Purpur.position.x - (window.width / 2);
             //camera.position.y = Purpur.position.y - (window.height / 2);
 
-            mouse.update(window.window, camera);
 
 
+            input.update(window, camera);
 
-            boolean hovering =
-                mouse.position.x > Purpur.position.x &&
-                    mouse.position.x < Purpur.position.x + Purpur.width &&
-                    mouse.position.y > Purpur.position.y &&
-                    mouse.position.y < Purpur.position.y + Purpur.height;
 
-            if (hovering) {
-                if (glfwGetMouseButton(window.window, GLFW_MOUSE_BUTTON_LEFT)
-                        == GLFW_PRESS) {
+            if (input.mouse.leftHeld(Purpur)) {
+                Purpur.position.x = input.mouse.position.x - Purpur.width / 2f;
+                Purpur.position.y = input.mouse.position.y - Purpur.height / 2f;
 
-                    Purpur.position.x = mouse.position.x - Purpur.width / 2f;
-                    Purpur.position.y = mouse.position.y - Purpur.height / 2f;
-
-                    Purpur.velocity = new Vector2(0,0);
-
-                }
+                Purpur.velocity = new Vector2(0,0);
             }
 
 
@@ -115,7 +105,7 @@ public class Main {
                 Purpur.velocity.y += 0.1f;
             }
 
-            if (Purpur.isGrounded && glfwGetKey(window.window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+            if (Purpur.isGrounded && input.pressed(GLFW_KEY_SPACE)) {
 
                 Purpur.velocity.y -= 3f;
             }

@@ -32,6 +32,8 @@ public class Collision {
 
     public void resolveCollision(Collider a, Collider b) {
 
+        if (a.isGhost || b.isGhost) {return;}
+
         float overlapX =
                 Math.min(
                 a.position.x + a.width,

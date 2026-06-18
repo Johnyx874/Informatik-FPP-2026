@@ -6,7 +6,9 @@ public class Mouse {
     public Vector2 position;
 
     public boolean leftPressed;
+    public boolean lastLeftPressed;
     public boolean rightPressed;
+    public boolean lastRightPressed;
 
     public Mouse() {
         this.screenPos = new Vector2();
@@ -15,7 +17,66 @@ public class Mouse {
         this.rightPressed = false;
     }
 
+    public boolean leftClicked() {
+        return leftPressed && !lastLeftPressed;
+    }
+
+    public boolean rightClicked() {
+        return rightPressed && !lastRightPressed;
+    }
+
+    public boolean leftHeld() {
+        return leftPressed;
+    }
+
+    public boolean rightHeld() {
+        return rightPressed;
+    }
+
+    public boolean hovering(Object2D object) {
+
+        boolean hovering =
+                this.position.x > object.position.x &&
+                this.position.x < object.position.x + object.width &&
+                this.position.y > object.position.y &&
+                this.position.y < object.position.y + object.height;
+
+        return hovering;
+    }
+
+    public boolean leftClicked(Object2D object) {
+
+        boolean hovering = hovering(object);
+
+        return hovering && this.leftClicked();
+    }
+
+    public boolean rightClicked(Object2D object) {
+
+        boolean hovering = hovering(object);
+
+        return hovering && this.rightClicked();
+    }
+
+    public boolean leftHeld(Object2D object) {
+
+        boolean hovering = hovering(object);
+
+        return hovering && this.leftPressed;
+    }
+
+    public boolean rightHeld(Object2D object) {
+
+        boolean hovering = hovering(object);
+
+        return hovering && this.rightPressed;
+    }
+
+
     public void update(long window, Camera2D camera) {
+
+        lastLeftPressed = leftPressed;
+        lastRightPressed = rightPressed;
 
         double[] mouseX = new double[1];
         double[] mouseY = new double[1];
