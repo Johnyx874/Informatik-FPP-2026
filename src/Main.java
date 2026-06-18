@@ -28,17 +28,17 @@ public class Main {
                 allObject2D.add(Purpur);
                 allPhysicsObject.add(Purpur);
 
-        PhysicsObject Test = new PhysicsObject
-                ("Test", 0,-150,100,100, "./assets/box.png");
-                Test.setCollider(true);
-                allObject2D.add(Test);
-                allPhysicsObject.add(Test);
+        PhysicsObject SmallBox = new PhysicsObject
+                ("Small Box", 0,-150,100,100, "./assets/box.png");
+                SmallBox.setCollider(true);
+                allObject2D.add(SmallBox);
+                allPhysicsObject.add(SmallBox);
 
-        PhysicsObject Test2 = new PhysicsObject
-                ("test2", -150,0, 150,150, "./assets/box.png");
-                Test2.setCollider(false, 100, 100);
-                allObject2D.add(Test2);
-                allPhysicsObject.add(Test2);
+        PhysicsObject BigBox = new PhysicsObject
+                ("Big Box", 0,500, 1000,50, "./assets/box.png");
+                BigBox.setCollider(false);
+                allObject2D.add(BigBox);
+                allPhysicsObject.add(BigBox);
 
         //Station station = new Station(1000,1000);
 
@@ -52,36 +52,36 @@ public class Main {
 
             glClear(GL_COLOR_BUFFER_BIT);
 
-            if (glfwGetKey(window.window, GLFW_KEY_LEFT) == GLFW_PRESS) {
+            if (glfwGetKey(window.window, GLFW_KEY_A) == GLFW_PRESS) {
                 Purpur.position.x -= playerSpeed;
             }
 
-            if (glfwGetKey(window.window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
+            if (glfwGetKey(window.window, GLFW_KEY_D) == GLFW_PRESS) {
                 Purpur.position.x += playerSpeed;
             }
 
-            if (glfwGetKey(window.window, GLFW_KEY_UP) == GLFW_PRESS) {
+            if (glfwGetKey(window.window, GLFW_KEY_W) == GLFW_PRESS) {
                 Purpur.position.y -= playerSpeed;
             }
 
-            if (glfwGetKey(window.window, GLFW_KEY_DOWN) == GLFW_PRESS) {
+            if (glfwGetKey(window.window, GLFW_KEY_S) == GLFW_PRESS) {
                 Purpur.position.y += playerSpeed;
             }
 
 
-            if (glfwGetKey(window.window, GLFW_KEY_A) == GLFW_PRESS) {
+            if (glfwGetKey(window.window, GLFW_KEY_LEFT) == GLFW_PRESS) {
                 camera.position.x -= camSpeed;
             }
 
-            if (glfwGetKey(window.window, GLFW_KEY_D) == GLFW_PRESS) {
+            if (glfwGetKey(window.window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
                 camera.position.x += camSpeed;
             }
 
-            if (glfwGetKey(window.window, GLFW_KEY_W) == GLFW_PRESS) {
+            if (glfwGetKey(window.window, GLFW_KEY_UP) == GLFW_PRESS) {
                 camera.position.y -= camSpeed;
             }
 
-            if (glfwGetKey(window.window, GLFW_KEY_S) == GLFW_PRESS) {
+            if (glfwGetKey(window.window, GLFW_KEY_DOWN) == GLFW_PRESS) {
                 camera.position.y += camSpeed;
             }
 
@@ -91,29 +91,50 @@ public class Main {
             mouse.update(window.window, camera);
 
 
+
+            boolean hovering =
+                mouse.position.x > Purpur.position.x &&
+                    mouse.position.x < Purpur.position.x + Purpur.width &&
+                    mouse.position.y > Purpur.position.y &&
+                    mouse.position.y < Purpur.position.y + Purpur.height;
+
+            if (hovering) {
+                if (glfwGetMouseButton(window.window, GLFW_MOUSE_BUTTON_LEFT)
+                        == GLFW_PRESS) {
+
+                    Purpur.position.x = mouse.position.x - Purpur.width / 2f;
+                    Purpur.position.y = mouse.position.y - Purpur.height / 2f;
+
+                    Purpur.velocity = new Vector2(0,0);
+
+                }
+            }
+
+
+            if (!Purpur.isGrounded) {
+                Purpur.velocity.y += 0.1f;
+            }
+
+            if (Purpur.isGrounded && glfwGetKey(window.window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+
+                Purpur.velocity.y -= 3f;
+            }
+
             for (Object2D object2D : allObject2D) {
                 object2D.update();
             }
 
-            /*
-            Purpur.update();
-            Test.update();
-            Test2.update();
-            */
-
-            Purpur.checkClicked(mouse);
-
-            //station.update(window);
-
-            Button.checkClicked(mouse);
+            Purpur.isGrounded = false;
 
             collision.check(allPhysicsObject);
 
+
+
             renderer.renderObject(allObject2D);
 
-            //renderer.renderObject(station.allStationParts);
 
-            renderer.renderGUI(Button);
+
+
 
             glfwSwapBuffers(window.window);
         }
