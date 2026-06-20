@@ -14,6 +14,8 @@ public class ObjectGUI {
     public int vao;
     public int vbo;
 
+    public boolean shouldDestroy;
+
     public ObjectGUI(String name, float x, float y, String texPath) {
 
         this.name = name;
@@ -116,5 +118,6 @@ public class ObjectGUI {
         this.position = position;
     }
 
+    public void update() {}
 
 }

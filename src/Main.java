@@ -10,8 +10,8 @@ public class Main {
         Camera2D camera = new Camera2D(0, 0);
 
         Scene scene = new Scene(0.01f, window, shader, camera);
+        UserInterface userInterface = new UserInterface(window, shader);
         Input input = new Input();
-
 
         scene.createObject2D("Background",0,-350, 4.0f, "./assets/planet_test.png");
 
@@ -26,7 +26,8 @@ public class Main {
         scene.createPhysicsObject("Big Box", 0,500, 1000,50, "./assets/box.png",
                                 false, 1000, 50);
 
-        ObjectGUI Button = new ObjectGUI("Button", 50, 300, 100, 100, "./assets/button.gif" );
+
+        userInterface.createObjectGUI("Button", 50, 300, 100, 100, "./assets/button.gif");
 
 
         while (!glfwWindowShouldClose(window.window)) {
@@ -48,6 +49,10 @@ public class Main {
 
             scene.updateCollision();
             scene.render();
+
+            userInterface.cleanup();
+            userInterface.updateObjects();
+            userInterface.render();
 
             glfwSwapBuffers(window.window);
 
