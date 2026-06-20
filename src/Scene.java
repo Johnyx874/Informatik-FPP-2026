@@ -23,7 +23,7 @@ public class Scene {
         allObjects = new ArrayList<>();
         physicsObjects = new ArrayList<>();
 
-        System.out.println("Scene created!");
+        Log.print("Scene created!");
     }
 
     public Entity createEntity(String name, float x, float y, float width, float height, String texPath) {
@@ -35,7 +35,7 @@ public class Scene {
         physicsObjects.add(obj);
         allObjects.add(obj);
 
-        System.out.println("Entity " + "name" + " created!");
+        Log.print("Entity '" + obj.name + "' created!");
 
         return obj;
     }
@@ -48,7 +48,7 @@ public class Scene {
         physicsObjects.add(obj);
         allObjects.add(obj);
 
-        System.out.println("PhysicsObject " + "name" + " created!");
+        Log.print("PhysicsObject '" + obj.name + "' created!");
 
         return obj;
     }
@@ -60,7 +60,7 @@ public class Scene {
 
         allObjects.add(obj);
 
-        System.out.println("Object2D " + "name" + " created!");
+        Log.print("Object2D '" + obj.name + "' created!");
 
         return obj;
     }

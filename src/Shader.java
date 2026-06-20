@@ -60,7 +60,7 @@ public class Shader {
 
         glUniform1i(location, 0);
 
-        System.out.println("Shader created!");
+        Log.print("Shader created!");
     }
 
     int compileShader(int type, String source) {
@@ -72,8 +72,8 @@ public class Shader {
         int result = glGetShaderi(id, GL_COMPILE_STATUS);
         if (result == GL_FALSE) {
             String message = glGetShaderInfoLog(id);
-            System.out.println("Failed to compile " + (type == GL_VERTEX_SHADER ? "vertex" : "fragment") + " shader!");
-            System.out.println(message);
+            Log.print("Failed to compile " + (type == GL_VERTEX_SHADER ? "vertex" : "fragment") + " shader!");
+            Log.print(message);
             glDeleteShader(id);
             return 0;
         }
@@ -92,12 +92,12 @@ public class Shader {
 
         glLinkProgram(program);
         if (glGetProgrami(program, GL_LINK_STATUS) == GL_FALSE) {
-            System.out.println(glGetProgramInfoLog(program));
+            Log.print(glGetProgramInfoLog(program));
         }
 
         glValidateProgram(program);
         if (glGetProgrami(program, GL_VALIDATE_STATUS) == GL_FALSE) {
-            System.out.println(glGetProgramInfoLog(program));
+            Log.print(glGetProgramInfoLog(program));
         }
 
         glDeleteShader(vs);

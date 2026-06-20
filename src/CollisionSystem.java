@@ -19,11 +19,11 @@ public class CollisionSystem {
                         (a.position.y > b.position.y + b.height);
 
                 if (!separated) {
-
-                    System.out.println(
+                    ///*
+                    Log.print(
                             objects.get(i).name + " collides with " + objects.get(j).name
                     );
-
+                    //*/
                     resolveCollision(a, b);
                 }
             }

@@ -121,31 +121,6 @@ public class Object2D {
         this.position = position;
     }
 
-    boolean clicked = false;
-    public void checkClicked(Mouse mouse) {
-
-        if (!mouse.leftPressed && !mouse.rightPressed) {clicked = false;}
-
-        boolean hovering =
-            mouse.position.x > position.x &&
-            mouse.position.x < position.x + width &&
-            mouse.position.y > position.y &&
-            mouse.position.y < position.y + height;
-
-        if (hovering) {
-            if (mouse.leftPressed && !clicked) {
-                position.y += 10f;
-                clicked = true;
-                System.out.println("Object2D was left-clicked!");
-            }
-            if (mouse.rightPressed && !clicked) {
-                position.y -= 10f;
-                clicked = true;
-                System.out.println("    Object2D was right-clicked!");
-            }
-        }
-    }
-
     public void update() {}
 
 }

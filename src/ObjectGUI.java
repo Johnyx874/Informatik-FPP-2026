@@ -27,7 +27,7 @@ public class ObjectGUI {
 
         createMesh();
 
-        System.out.println("Object2D created!");
+        Log.print("ObjectGUI '" + name + "' created!");
     }
 
     public ObjectGUI(String name, float x, float y, float scale, String texPath) {
@@ -43,7 +43,7 @@ public class ObjectGUI {
 
         createMesh();
 
-        System.out.println("Object2D created!");
+        Log.print("ObjectGUI '" + name + "' created!");
     }
 
     public ObjectGUI(String name, float x, float y, float width, float height, String texPath) {
@@ -59,7 +59,7 @@ public class ObjectGUI {
 
         createMesh();
 
-        System.out.println("Object2D created!");
+        Log.print("ObjectGUI '" + name + "' created!");
     }
 
     private void createMesh() {
@@ -116,29 +116,5 @@ public class ObjectGUI {
         this.position = position;
     }
 
-    boolean clicked = false;
-    public void checkClicked(Mouse mouse) {
-
-        if (!mouse.leftPressed && !mouse.rightPressed) {clicked = false;}
-
-        boolean hovering =
-                mouse.screenPos.x > position.x &&
-                mouse.screenPos.x < position.x + width &&
-                mouse.screenPos.y > position.y &&
-                mouse.screenPos.y < position.y + height;
-
-        if (hovering) {
-            if (mouse.leftPressed && !clicked) {
-                position.y += 10f;
-                clicked = true;
-                System.out.println("Object2D was left-clicked!");
-            }
-            if (mouse.rightPressed && !clicked) {
-                position.y -= 10f;
-                clicked = true;
-                System.out.println("    Object2D was right-clicked!");
-            }
-        }
-    }
 
 }

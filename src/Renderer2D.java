@@ -15,7 +15,7 @@ public class Renderer2D {
         this.shader = shader;
         this.camera = camera;
 
-        System.out.println("Renderer2D created!");
+        Log.print("Renderer2D created!");
     }
 
     public void renderObject(ArrayList<Object2D> objects) {

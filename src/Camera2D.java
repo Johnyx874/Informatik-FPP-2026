@@ -1,3 +1,6 @@
+import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_DOWN;
+
 public class Camera2D {
 
     public Vector2 position;
@@ -5,10 +8,12 @@ public class Camera2D {
     public float width;
     public float height;
 
+    public float moveSpeed;
+
     public Camera2D(float x, float y) {
         this.position = new Vector2(x, y);
-
-        System.out.println("Camera2D created!");
+        this.moveSpeed = 3f;
+        Log.print("Camera2D created!");
     }
 
     public Vector2 getPosition() {
@@ -26,5 +31,23 @@ public class Camera2D {
         float camY = worldPos.y - position.y + height / 2f;
 
         return new Vector2(camX, camY);
+    }
+
+    public void update(Input input) {
+        if (input.pressed(GLFW_KEY_LEFT)) {
+            position.x -= moveSpeed;
+        }
+
+        if (input.pressed(GLFW_KEY_RIGHT)) {
+            position.x += moveSpeed;
+        }
+
+        if (input.pressed(GLFW_KEY_UP)) {
+            position.y -= moveSpeed;
+        }
+
+        if (input.pressed(GLFW_KEY_DOWN)) {
+            position.y += moveSpeed;
+        }
     }
 }

@@ -36,8 +36,6 @@ public class PhysicsObject extends Object2D {
         collider.position.x = position.x;
         collider.position.y = position.y;
 
-        System.out.println(name + " " + velocity.y);
-
     }
 
 
