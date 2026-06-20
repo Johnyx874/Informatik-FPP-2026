@@ -9,7 +9,7 @@ public class Main {
         Shader shader = new Shader();
         Camera2D camera = new Camera2D(0, 0);
 
-        Scene scene = new Scene(0.1f, window, shader, camera);
+        Scene scene = new Scene(0.01f, window, shader, camera);
         Input input = new Input();
 
 
@@ -20,7 +20,7 @@ public class Main {
         scene.addPhysicsObject(Purpur);
 
 
-        scene.createPhysicsObject("Small Box", 0,-150,100,100, "./assets/box.png",
+        scene.createPhysicsObject("Small Box", 0,0,100,100, "./assets/box.png",
                                 true, 100, 100);
 
         scene.createPhysicsObject("Big Box", 0,500, 1000,50, "./assets/box.png",
@@ -37,6 +37,8 @@ public class Main {
             input.update(window, camera);
 
             camera.update(input);
+
+
 
             scene.cleanup();
             scene.applyGravity();

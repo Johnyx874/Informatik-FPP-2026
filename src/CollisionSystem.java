@@ -19,11 +19,11 @@ public class CollisionSystem {
                         (a.position.y > b.position.y + b.height);
 
                 if (!separated) {
-                    ///*
+
                     Log.print(
                             objects.get(i).name + " collides with " + objects.get(j).name
                     );
-                    //*/
+
                     resolveCollision(a, b);
                 }
             }
@@ -72,7 +72,7 @@ public class CollisionSystem {
                 else if (!a.isDynamic && b.isDynamic) {
                     b.owner.position.x += overlapX;
                 }
-                else {
+                else if (a.isDynamic && b.isDynamic) {
                     a.owner.position.x -= overlapX / 2f;
                     b.owner.position.x += overlapX / 2f;
                 }
@@ -86,7 +86,7 @@ public class CollisionSystem {
                 else if (!a.isDynamic && b.isDynamic) {
                     b.owner.position.x -= overlapX;
                 }
-                else {
+                else if (a.isDynamic && b.isDynamic) {
                     a.owner.position.x += overlapX / 2f;
                     b.owner.position.x -= overlapX / 2f;
                 }
@@ -105,10 +105,9 @@ public class CollisionSystem {
 
                     a.owner.position.y -= overlapY;
 
-                    if (a.owner.velocity.y > 0) {
                         a.owner.velocity.y = 0;
                         a.owner.isGrounded = true;
-                    }
+
                 }
                 else if (!a.isDynamic && b.isDynamic) {
 
@@ -118,15 +117,13 @@ public class CollisionSystem {
                         b.owner.velocity.y = 0;
                     }
                 }
-                else {
+                else if (a.isDynamic && b.isDynamic) {
 
                     a.owner.position.y -= overlapY / 2f;
                     b.owner.position.y += overlapY / 2f;
 
-                    if (a.owner.velocity.y > 0) {
-                        a.owner.velocity.y = 0;
-                        a.owner.isGrounded = true;
-                    }
+                    a.owner.velocity.y = 0;
+                    a.owner.isGrounded = true;
 
                     if (b.owner.velocity.y < 0) {
                         b.owner.velocity.y = 0;
@@ -150,12 +147,11 @@ public class CollisionSystem {
 
                     b.owner.position.y -= overlapY;
 
-                    if (b.owner.velocity.y > 0) {
                         b.owner.velocity.y = 0;
                         b.owner.isGrounded = true;
-                    }
+
                 }
-                else {
+                else if (a.isDynamic && b.isDynamic) {
 
                     a.owner.position.y += overlapY / 2f;
                     b.owner.position.y -= overlapY / 2f;
@@ -164,10 +160,9 @@ public class CollisionSystem {
                         a.owner.velocity.y = 0;
                     }
 
-                    if (b.owner.velocity.y > 0) {
-                        b.owner.velocity.y = 0;
-                        b.owner.isGrounded = true;
-                    }
+                    b.owner.velocity.y = 0;
+                    b.owner.isGrounded = true;
+
                 }
             }
         }

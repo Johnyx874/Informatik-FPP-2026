@@ -1,5 +1,4 @@
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_S;
 
 public class Player extends Entity {
 
@@ -31,15 +30,18 @@ public class Player extends Entity {
         if (isGrounded && input.pressed(GLFW_KEY_W)) {
             velocity.y -= movementSpeed;
         }
-        //if (isGrounded && input.clicked(GLFW_KEY_SPACE)) {
-            //velocity.y -= 5f;
-        //}
+        if (isGrounded && input.clicked(GLFW_KEY_SPACE)) {
+            velocity.y -= 1f;
+        }
+        /*
         if (input.clicked(GLFW_KEY_SPACE)) {
 
             System.out.println(
                     "CLICKED  grounded=" + isGrounded
             );
         }
+        */
+
     }
 
     private void checkDragged(Input input) {
@@ -67,6 +69,8 @@ public class Player extends Entity {
 
             movementSpeed = 3f;
         }
+
+        Log.print("" + isGrounded);
 
         checkDragged(input);
 
