@@ -14,6 +14,8 @@ public class Object2D {
     public int vao;
     public int vbo;
 
+    public boolean shouldDestroy;
+
     public Object2D(String name, float x, float y, String texPath) {
 
         this.name = name;
@@ -25,9 +27,10 @@ public class Object2D {
         this.width = texture.width;
         this.height = texture.height;
 
+        this.shouldDestroy = false;
+
         createMesh();
 
-        System.out.println("Object2D " + this.name + " created!");
     }
 
     public Object2D(String name, float x, float y, float scale, String texPath) {
@@ -41,9 +44,10 @@ public class Object2D {
         this.width = texture.width * scale;
         this.height = texture.height * scale;
 
+        this.shouldDestroy = false;
+
         createMesh();
 
-        System.out.println("Object2D " + this.name + " created!");
     }
 
     public Object2D(String name, float x, float y, float width, float height, String texPath) {
@@ -57,9 +61,10 @@ public class Object2D {
 
         this.texture = new Texture(texPath);
 
+        this.shouldDestroy = false;
+
         createMesh();
 
-        System.out.println("Object2D " + this.name + " created!");
     }
 
     private void createMesh() {

@@ -10,37 +10,21 @@ public class Main {
         Window window = new Window(1280, 720);
         Shader shader = new Shader();
         Camera2D camera = new Camera2D(0, 0);
-        Renderer2D renderer = new Renderer2D(window, shader, camera);
+        Scene scene = new Scene(0.1f, window, shader, camera);
         Input input = new Input();
 
-        Collision collision = new Collision();
 
-        ArrayList<Object2D> allObject2D = new ArrayList<>();
-        ArrayList<PhysicsObject> allPhysicsObject = new ArrayList<>();
+        scene.createObject2D("Background",0,-350, 4.0f, "./assets/planet_test.png");
 
-        Object2D Background = new Object2D
-                ("BG",0,0, 0.5f, "./assets/background.png");
-                allObject2D.add(Background);
+        Entity Purpur = new Entity("Purpur", 50, 50, 100, 100, "./assets/purpur.png");
+        scene.addPhysicsObject(Purpur);
 
-        PhysicsObject Purpur = new PhysicsObject
-                ("Purpur", 50,50, 100,100, "./assets/purpur.png");
-                Purpur.setCollider(true);
-                allObject2D.add(Purpur);
-                allPhysicsObject.add(Purpur);
 
-        PhysicsObject SmallBox = new PhysicsObject
-                ("Small Box", 0,-150,100,100, "./assets/box.png");
-                SmallBox.setCollider(true);
-                allObject2D.add(SmallBox);
-                allPhysicsObject.add(SmallBox);
+        scene.createPhysicsObject("Small Box", 0,-150,100,100, "./assets/box.png",
+                                true, 100, 100);
 
-        PhysicsObject BigBox = new PhysicsObject
-                ("Big Box", 0,500, 1000,50, "./assets/box.png");
-                BigBox.setCollider(false);
-                allObject2D.add(BigBox);
-                allPhysicsObject.add(BigBox);
-
-        //Station station = new Station(1000,1000);
+        scene.createPhysicsObject("Big Box", 0,500, 1000,50, "./assets/box.png",
+                                false, 1000, 50);
 
         ObjectGUI Button = new ObjectGUI("Button", 50, 300, 100, 100, "./assets/button.gif" );
 
@@ -48,9 +32,12 @@ public class Main {
         float camSpeed = 3f;
 
         while (!glfwWindowShouldClose(window.window)) {
-            glfwPollEvents();
 
             glClear(GL_COLOR_BUFFER_BIT);
+            glfwPollEvents();
+
+            input.update(window, camera);
+
 
             if (input.pressed(GLFW_KEY_A)) {
                 Purpur.position.x -= playerSpeed;
@@ -89,10 +76,6 @@ public class Main {
             //camera.position.y = Purpur.position.y - (window.height / 2);
 
 
-
-            input.update(window, camera);
-
-
             if (input.mouse.leftHeld(Purpur)) {
                 Purpur.position.x = input.mouse.position.x - Purpur.width / 2f;
                 Purpur.position.y = input.mouse.position.y - Purpur.height / 2f;
@@ -100,30 +83,18 @@ public class Main {
                 Purpur.velocity = new Vector2(0,0);
             }
 
-
-            if (!Purpur.isGrounded) {
-                Purpur.velocity.y += 0.1f;
-            }
-
             if (Purpur.isGrounded && input.pressed(GLFW_KEY_SPACE)) {
 
                 Purpur.velocity.y -= 3f;
             }
 
-            for (Object2D object2D : allObject2D) {
-                object2D.update();
-            }
-
-            Purpur.isGrounded = false;
-
-            collision.check(allPhysicsObject);
 
 
-
-            renderer.renderObject(allObject2D);
-
-
-
+            scene.cleanup();
+            scene.applyGravity();
+            scene.updateObjects();
+            scene.updateCollision();
+            scene.render();
 
 
             glfwSwapBuffers(window.window);

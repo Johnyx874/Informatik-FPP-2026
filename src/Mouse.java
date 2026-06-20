@@ -5,10 +5,8 @@ public class Mouse {
     public Vector2 screenPos;
     public Vector2 position;
 
-    public boolean leftPressed;
-    public boolean lastLeftPressed;
-    public boolean rightPressed;
-    public boolean lastRightPressed;
+    public boolean leftPressed, lastLeftPressed;
+    public boolean rightPressed, lastRightPressed;
 
     public Mouse() {
         this.screenPos = new Vector2();
@@ -34,42 +32,26 @@ public class Mouse {
     }
 
     public boolean hovering(Object2D object) {
-
-        boolean hovering =
-                this.position.x > object.position.x &&
-                this.position.x < object.position.x + object.width &&
-                this.position.y > object.position.y &&
-                this.position.y < object.position.y + object.height;
-
-        return hovering;
+        return this.position.x > object.position.x &&
+               this.position.x < object.position.x + object.width &&
+               this.position.y > object.position.y &&
+               this.position.y < object.position.y + object.height;
     }
 
     public boolean leftClicked(Object2D object) {
-
-        boolean hovering = hovering(object);
-
-        return hovering && this.leftClicked();
+        return hovering(object) && this.leftClicked();
     }
 
     public boolean rightClicked(Object2D object) {
-
-        boolean hovering = hovering(object);
-
-        return hovering && this.rightClicked();
+        return hovering(object) && this.rightClicked();
     }
 
     public boolean leftHeld(Object2D object) {
-
-        boolean hovering = hovering(object);
-
-        return hovering && this.leftPressed;
+        return hovering(object) && this.leftPressed;
     }
 
     public boolean rightHeld(Object2D object) {
-
-        boolean hovering = hovering(object);
-
-        return hovering && this.rightPressed;
+        return hovering(object) && this.rightPressed;
     }
 
 

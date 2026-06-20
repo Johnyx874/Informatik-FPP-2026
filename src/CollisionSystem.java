@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Collision {
+public class CollisionSystem {
 
     public void check(ArrayList<PhysicsObject> objects) {
 

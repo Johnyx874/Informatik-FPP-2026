@@ -5,38 +5,39 @@ public class PhysicsObject extends Object2D {
     public Vector2 velocity;
     public Collider collider;
     public boolean isGrounded;
+    public boolean isDynamic;
 
-    public PhysicsObject(String name, float x, float y, float width, float height, String texPath) {
+    public PhysicsObject(String name, float x, float y, float width, float height, String texPath,
+                         boolean isDynamic) {
 
         super(name, x, y, width, height, texPath);
 
         this.velocity = new Vector2();
-        this.collider = new Collider(this, x, y, width, height, false);
+        this.isDynamic = isDynamic;
+        this.collider = new Collider(this, x, y, width, height, this.isDynamic);
         this.isGrounded = false;
     }
 
-    public void setCollider(boolean isDynamic) {
-        collider.isDynamic = isDynamic;
-    }
+    public PhysicsObject(String name, float x, float y, float width, float height, String texPath,
+                         boolean isDynamic, float colliderWidth, float colliderHeight) {
 
-    public void setCollider(boolean isDynamic, float width, float height) {
-        collider.width = width;
-        collider.height = height;
-        collider.isDynamic = isDynamic;
+        super(name, x, y, width, height, texPath);
+
+        this.velocity = new Vector2();
+        this.isDynamic = isDynamic;
+        this.collider = new Collider(this, x, y, colliderWidth, colliderHeight, this.isDynamic);
+        this.isGrounded = false;
     }
 
     @Override
     public void update() {
 
-
-
-
         position = position.add(velocity);
-        collider.update(this.position);
-
-
+        collider.position.x = position.x;
+        collider.position.y = position.y;
 
         System.out.println(name + " " + velocity.y);
+
     }
 
 
