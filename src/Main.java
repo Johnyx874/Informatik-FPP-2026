@@ -12,12 +12,14 @@ public class Main {
         Scene scene = new Scene(0.1f, window, shader, camera);
         Input input = new Input();
 
-
         scene.createObject2D("Background",0,-350, 4.0f, "./assets/planet_test.png");
 
         Player Purpur = new Player(50, 50);
+        Enemy enemy= new Enemy(60,60, Purpur);
+
         Purpur.texture = Purpur.texHelmetOn;
         scene.addPhysicsObject(Purpur);
+        scene.addPhysicsObject(enemy);
 
 
         scene.createPhysicsObject("Small Box", 0,-150,100,100, "./assets/box.png",
@@ -42,6 +44,7 @@ public class Main {
             scene.applyGravity();
 
             Purpur.update(input);
+            enemy.update(input);
             scene.updateObjects();
 
             scene.updateCollision();
