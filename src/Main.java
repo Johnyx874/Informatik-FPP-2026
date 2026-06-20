@@ -13,21 +13,25 @@ public class Main {
         UserInterface userInterface = new UserInterface(window, shader);
         Input input = new Input();
 
-        scene.createObject2D("Background",0,-350, 4.0f, "./assets/planet_test.png");
+        scene.createObject2D("Background",-300,-200, 2.5f, "./assets/space_1.jpg");
 
         Player Purpur = new Player(50, 50);
         Purpur.texture = Purpur.texHelmetOn;
         scene.addPhysicsObject(Purpur);
 
 
-        scene.createPhysicsObject("Small Box", 0,0,100,100, "./assets/box.png",
+        scene.createPhysicsObject("Small Box", 0,0,100,100, "./assets/placeholder.png",
                                 true, 100, 100);
 
-        scene.createPhysicsObject("Big Box", 0,500, 1000,50, "./assets/box.png",
+        scene.createPhysicsObject("Big Box", 0,500, 1000,50, "./assets/placeholder.png",
                                 false, 1000, 50);
 
 
-        userInterface.createObjectGUI("Button", 50, 300, 100, 100, "./assets/button.gif");
+        userInterface.createButton("Left Button", 50, 300, 100, 100, "./assets/button");
+
+        userInterface.createButton("Right Button", 1150, 300, 100, 100, "./assets/button");
+
+        userInterface.createButton("Middle Button", 540, 600, 100, 100, "./assets/button");
 
 
         while (!glfwWindowShouldClose(window.window)) {
@@ -51,7 +55,7 @@ public class Main {
             scene.render();
 
             userInterface.cleanup();
-            userInterface.updateObjects();
+            userInterface.updateObjects(input);
             userInterface.render();
 
             glfwSwapBuffers(window.window);

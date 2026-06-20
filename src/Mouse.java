@@ -31,6 +31,8 @@ public class Mouse {
         return rightPressed;
     }
 
+
+
     public boolean hovering(Object2D object) {
         return this.position.x > object.position.x &&
                this.position.x < object.position.x + object.width &&
@@ -53,6 +55,32 @@ public class Mouse {
     public boolean rightHeld(Object2D object) {
         return hovering(object) && this.rightPressed;
     }
+
+
+
+    public boolean hovering(ObjectGUI object) {
+        return this.screenPos.x > object.position.x &&
+        this.screenPos.x < object.position.x + object.width &&
+        this.screenPos.y > object.position.y &&
+        this.screenPos.y < object.position.y + object.height;
+    }
+
+    public boolean leftClicked(ObjectGUI object) {
+        return hovering(object) && this.leftClicked();
+    }
+
+    public boolean rightClicked(ObjectGUI object) {
+        return hovering(object) && this.rightClicked();
+    }
+
+    public boolean leftHeld(ObjectGUI object) {
+        return hovering(object) && this.leftPressed;
+    }
+
+    public boolean rightHeld(ObjectGUI object) {
+        return hovering(object) && this.rightPressed;
+    }
+
 
 
     public void update(long window, Camera2D camera) {

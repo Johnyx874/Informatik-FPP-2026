@@ -118,6 +118,4 @@ public class ObjectGUI {
         this.position = position;
     }
 
-    public void update() {}
-
 }

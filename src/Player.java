@@ -17,7 +17,7 @@ public class Player extends Entity {
         textures.add(texHelmetOn);
         textures.add(texHelmetOff);
 
-        movementSpeed = 3f;
+        movementSpeed = 2f;
     }
 
     private void move(Input input) {
@@ -55,7 +55,20 @@ public class Player extends Entity {
 
     public void update(Input input) {
 
-        move(input);
+        //move(input);
+
+        if (Event.leftButtonPressed) {
+            velocity.x = -movementSpeed;
+        }
+        else if (Event.rightButtonPressed) {
+            velocity.x = movementSpeed;
+        }
+        else if (Event.middleButtonPressed && isGrounded) {
+            velocity.y -= 1f;
+        }
+        else {
+            velocity.x = 0;
+        }
 
         if (input.clicked(GLFW_KEY_R) && texture == texHelmetOn) {
             texture = texHelmetOff;
@@ -67,10 +80,8 @@ public class Player extends Entity {
             texture = texHelmetOn;
             Log.print("< Puh.. some air.. >");
 
-            movementSpeed = 3f;
+            movementSpeed = 2f;
         }
-
-        Log.print("" + isGrounded);
 
         checkDragged(input);
 
