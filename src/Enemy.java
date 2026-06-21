@@ -1,6 +1,7 @@
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 import static org.lwjgl.glfw.GLFW.*;
+// SURPRISE mother fcker
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_R;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_SPACE;
 import java.util.Random;
@@ -13,7 +14,7 @@ public class Enemy extends Entity {
 
     float movementSpeed;
     private Player player;
-    boolean playerIsInRadius = FALSE;
+    boolean playerIsInRadius = false;
 
     public Enemy (float x, float y, Player player) {
 
@@ -28,13 +29,13 @@ public class Enemy extends Entity {
             if (position.x < player.position.x && player.position.x - position.x < 400  ) {
 
                 velocity.x = movementSpeed;
-                playerIsInRadius = TRUE;
+                playerIsInRadius = true;
             } else if (position.x > player.position.x && player.position.x - position.x > -400){
                 velocity.x = -movementSpeed;
-                playerIsInRadius = TRUE;
+                playerIsInRadius = true;
             }
             else{
-                playerIsInRadius = FALSE;
+                playerIsInRadius = false;
             }
         }
     }
