@@ -16,21 +16,21 @@ public class Enemy extends Entity {
 
         super("enemy", x, y, 100, 100, "./assets/eyesaac.png");
 
-        movementSpeed = 1f;
+        movementSpeed = 0.1F;
         this.player = player;
     }
 
     private void movePersue() {
         if (player != null) {
-            if (position.x < player.position.x) {
+            if (position.x < player.position.x && player.position.x - position.x < 400) {
 
                 velocity.x = movementSpeed;
-            } else if (position.x > player.position.x){
+
+            } else if (position.x > player.position.x && player.position.x - position.x > -400){
                 velocity.x = -movementSpeed;
+
             }
-            else if (position.x == player.position.x){
-                velocity.x = 0;
-            }
+
         }
     }
 

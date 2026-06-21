@@ -15,7 +15,7 @@ public class Main {
         scene.createObject2D("Background",0,-350, 4.0f, "./assets/planet_test.png");
 
         Player Purpur = new Player(50, 50);
-        Enemy enemy= new Enemy(60,60, Purpur);
+        Enemy enemy= new Enemy(900,50, Purpur);
 
         Purpur.texture = Purpur.texHelmetOn;
         scene.addPhysicsObject(Purpur);
