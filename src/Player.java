@@ -38,7 +38,7 @@ public class Player extends Entity {
         }
         */
         if (isGrounded && input.clicked(GLFW_KEY_SPACE)) {
-            velocity.y -= 500f;
+            velocity.y -= movementSpeed;
         }
 
         if (!isGrounded) { texture = animation.getJump(); }
@@ -94,6 +94,8 @@ public class Player extends Entity {
          */
 
         checkDragged(input);
+
+        animation.update(deltaTime);
 
         super.update(deltaTime);
 

@@ -44,6 +44,11 @@ public class Main {
             float deltaTime = (currentTime - lastTime) / 1_000_000_000.0f;
             lastTime = currentTime;
 
+            //Log.print("" + deltaTime);
+
+
+
+
             glClear(GL_COLOR_BUFFER_BIT);
             glfwPollEvents();
 

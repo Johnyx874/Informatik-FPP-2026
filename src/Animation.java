@@ -44,9 +44,16 @@ public class Animation {
         return textures.get(x);
     }
 
-    void update() {
+    float timer = 0.0f;
+    void update(float deltaTime) {
 
+        timer += deltaTime;
 
+        if (timer >= 1.0f) {
+            timer -= 1.0f;
+
+            Log.print("1 Second");
+        }
 
     }
 
