@@ -121,6 +121,6 @@ public class Object2D {
         this.position = position;
     }
 
-    public void update() {}
+    public void update(float deltaTime) {}
 
 }

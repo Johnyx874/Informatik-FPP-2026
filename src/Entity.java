@@ -5,9 +5,6 @@ public class Entity extends PhysicsObject {
     private int health;
     private boolean isAlive;
 
-    ArrayList<Texture> textures = new ArrayList<>();
-
-
     public Entity(String name, float x, float y, float width, float height, String texPath) {
         super(name, x, y, width, height, texPath, true);
         health = 1;
@@ -24,10 +21,10 @@ public class Entity extends PhysicsObject {
     public void setAlive(boolean alive) { isAlive = alive; }
 
     @Override
-    public void update() {
+    public void update(float deltaTime) {
         if (health <= 0) { isAlive = false; }
         shouldDestroy = !isAlive;
 
-        super.update();
+        super.update(deltaTime);
     }
 }

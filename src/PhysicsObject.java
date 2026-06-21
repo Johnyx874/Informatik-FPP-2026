@@ -30,9 +30,11 @@ public class PhysicsObject extends Object2D {
     }
 
     @Override
-    public void update() {
+    public void update(float deltaTime) {
 
-        position = position.add(velocity);
+        position.x += velocity.x * deltaTime;
+        position.y += velocity.y * deltaTime;
+
         collider.position.x = position.x;
         collider.position.y = position.y;
 

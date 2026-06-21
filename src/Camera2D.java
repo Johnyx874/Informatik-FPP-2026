@@ -12,7 +12,7 @@ public class Camera2D {
 
     public Camera2D(float x, float y) {
         this.position = new Vector2(x, y);
-        this.moveSpeed = 3f;
+        this.moveSpeed = 500f;
         Log.print("Camera2D created!");
     }
 
@@ -33,21 +33,21 @@ public class Camera2D {
         return new Vector2(camX, camY);
     }
 
-    public void update(Input input) {
+    public void update(Input input, float deltaTime) {
         if (input.pressed(GLFW_KEY_LEFT)) {
-            position.x -= moveSpeed;
+            position.x -= moveSpeed * deltaTime;
         }
 
         if (input.pressed(GLFW_KEY_RIGHT)) {
-            position.x += moveSpeed;
+            position.x += moveSpeed * deltaTime;
         }
 
         if (input.pressed(GLFW_KEY_UP)) {
-            position.y -= moveSpeed;
+            position.y -= moveSpeed * deltaTime;
         }
 
         if (input.pressed(GLFW_KEY_DOWN)) {
-            position.y += moveSpeed;
+            position.y += moveSpeed * deltaTime;
         }
     }
 }

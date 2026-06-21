@@ -78,19 +78,21 @@ public class Scene {
 
     }
 
-    public void applyGravity() {
+    public void applyGravity(float deltaTime) {
         for (PhysicsObject obj : physicsObjects) {
             if (obj.isDynamic && !obj.isGrounded) {
-                obj.velocity.y += gravity;
+                obj.velocity.y += gravity * deltaTime;
             }
         }
     }
 
-    public void updateObjects() {
+
+    public void updateObjects(float deltaTime) {
         for (Object2D object2D : allObjects) {
-            object2D.update();
+            object2D.update(deltaTime);
         }
     }
+
 
     public void updateCollision() {
         for (PhysicsObject obj : physicsObjects) { obj.isGrounded = false; }
