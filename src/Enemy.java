@@ -9,12 +9,8 @@ import java.util.Random;
 
 public class Enemy extends Entity {
 
-
-
-
     float movementSpeed;
     private Player player;
-    boolean playerIsInRadius = false;
 
     public Enemy (float x, float y, Player player) {
 
@@ -23,30 +19,6 @@ public class Enemy extends Entity {
         movementSpeed = 0.1F;
         this.player = player;
     }
-
-    private void movePersue() {
-        if (player != null) {
-            if (position.x < player.position.x && player.position.x - position.x < 400  ) {
-
-                velocity.x = movementSpeed;
-                playerIsInRadius = true;
-            } else if (position.x > player.position.x && player.position.x - position.x > -400){
-                velocity.x = -movementSpeed;
-                playerIsInRadius = true;
-            }
-            else{
-                playerIsInRadius = false;
-            }
-        }
-    }
-
-    private void moveIdle() {
-       velocity.x =0;
-
-
-
-    }
-
 
     private void checkDragged(Input input) {
         if (input.mouse.leftHeld(this)) {
@@ -57,14 +29,35 @@ public class Enemy extends Entity {
         }
     }
 
+    private boolean playerIsInRadius() {
+        if (player == null) {return false;}
+
+        float xDistance = Math.abs(player.position.x - position.x);
+        float yDistance = Math.abs(player.position.y - position.y);
+
+        return Math.sqrt((xDistance * xDistance) + (yDistance * yDistance)) < 400;
+    }
+
+    private void movePursue() {
+        if (player == null) { return; }
+
+        if (position.x < player.position.x) {
+            velocity.x = movementSpeed;
+        }
+        else if (position.x > player.position.x){
+            velocity.x = -movementSpeed;
+        }
+    }
+
+    private void moveIdle() {
+        velocity.x = 0;
+    }
+
     public void update(Input input) {
-        if ((-400 < (player.position.x - position.x)) || ((player.position.x - position.x) < 400)) {
-            movePersue();
-            update();
-        }
-        else{
-            moveIdle();
-        }
+
+        if (playerIsInRadius()) { movePursue(); }
+        else { moveIdle(); }
+
         checkDragged(input);
 
         super.update();
