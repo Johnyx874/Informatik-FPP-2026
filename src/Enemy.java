@@ -1,3 +1,5 @@
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_R;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_SPACE;
@@ -11,6 +13,7 @@ public class Enemy extends Entity {
 
     float movementSpeed;
     private Player player;
+    boolean playerIsInRadius = FALSE;
 
     public Enemy (float x, float y, Player player) {
 
@@ -22,21 +25,25 @@ public class Enemy extends Entity {
 
     private void movePersue() {
         if (player != null) {
-            if (position.x < player.position.x && player.position.x - position.x < 400) {
+            if (position.x < player.position.x && player.position.x - position.x < 400  ) {
 
                 velocity.x = movementSpeed;
-
+                playerIsInRadius = TRUE;
             } else if (position.x > player.position.x && player.position.x - position.x > -400){
                 velocity.x = -movementSpeed;
-
+                playerIsInRadius = TRUE;
             }
-
+            else{
+                playerIsInRadius = FALSE;
+            }
         }
     }
 
     private void moveIdle() {
-        Random r= new Random();
-       velocity.x= velocity.x + r.nextInt(2);
+       velocity.x =0;
+
+
+
     }
 
 
@@ -50,8 +57,9 @@ public class Enemy extends Entity {
     }
 
     public void update(Input input) {
-        if (!input.pressed(GLFW_KEY_R)) {
+        if ((-400 < (player.position.x - position.x)) || ((player.position.x - position.x) < 400)) {
             movePersue();
+            update();
         }
         else{
             moveIdle();
