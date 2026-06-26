@@ -2,13 +2,54 @@ import static org.lwjgl.opengl.GL30.*;
 
 public class Shader {
 
-    public int shader;
-    String vertexShader;
+    public int shader2D;
+    public int shaderGUI;
+
+    String vertexShader2D;
+    String vertexShaderGUI;
     String fragmentShader;
 
     public Shader() {
 
-        vertexShader =
+        vertexShader2D =
+                "#version 330 core\n" +
+                "\n" +
+                "layout(location = 0) in vec2 aPos;\n" +
+                "layout(location = 1) in vec2 aUV;\n" +
+                "\n" +
+                "uniform vec2 u_Position;\n" +
+                "uniform vec2 u_ScreenSize;\n" +
+                "uniform vec2 u_CameraPosition;\n" +
+                "uniform float u_CameraZoom;\n" +
+                "\n" +
+                "out vec2 vUV;\n" +
+                "\n" +
+                "void main()\n" +
+                "{\n" +
+                "    // calculate world position\n" +
+                "    vec2 worldPosition = aPos + u_Position;\n" +
+                "    // apply camera position\n" +
+                "    worldPosition -= u_CameraPosition;\n" +
+                "    // apply camera zoom;\n" +
+                "    worldPosition *= u_CameraZoom;\n" +
+                "    // center camera\n" +
+                "    worldPosition += u_ScreenSize * 0.5;\n" +
+                "\n" +
+                "    // Pixel -> NDC umrechnen\n" +
+                "    vec2 ndc;\n" +
+                "\n" +
+                "    ndc.x = (worldPosition.x / u_ScreenSize.x) * 2.0 - 1.0;\n" +
+                "\n" +
+                "    ndc.y = 1.0 - (worldPosition.y / u_ScreenSize.y) * 2.0;\n" +
+                "\n" +
+                "    // Finale OpenGL Position\n" +
+                "    gl_Position = vec4(ndc, 0.0, 1.0);\n" +
+                "\n" +
+                "    // UV weitergeben\n" +
+                "    vUV = aUV;\n" +
+                "}\n";
+
+        vertexShaderGUI =
                 "#version 330 core\n" +
                 "\n" +
                 "layout(location = 0) in vec2 aPos;\n" +
@@ -52,15 +93,26 @@ public class Shader {
                 "    FragColor = texture(u_Texture, vUV);\n" +
                 "}\n";
 
-        shader = createShader(vertexShader, fragmentShader);
+        shader2D = createShader(vertexShader2D, fragmentShader);
 
-        glUseProgram(shader);
+        glUseProgram(shader2D);
 
-        int location = glGetUniformLocation(shader, "u_Texture");
-
+        int location = glGetUniformLocation(shader2D, "u_Texture");
         glUniform1i(location, 0);
 
-        Log.print("Shader created!");
+        Log.print("Shader 2D created!");
+
+
+        shaderGUI = createShader(vertexShaderGUI, fragmentShader);
+
+        glUseProgram(shaderGUI);
+
+        int locationGUI = glGetUniformLocation(shaderGUI, "u_Texture");
+        glUniform1i(locationGUI, 0);
+
+        Log.print("Shader GUI created!");
+
+
     }
 
     int compileShader(int type, String source) {
@@ -106,21 +158,39 @@ public class Shader {
         return program;
     }
 
-    public void bind() {
-        glUseProgram(shader);
+    public void bind2D() {
+        glUseProgram(shader2D);
+    }
+    public void bindGUI() {
+        glUseProgram(shaderGUI);
     }
 
     public void unbind() {
         glUseProgram(0);
     }
 
-    public void setVec2(String name, float x, float y) {
-
-        int location = glGetUniformLocation(shader, name);
+    public void setVec2_2D(String name, float x, float y) {
+        int location = glGetUniformLocation(shader2D, name);
         glUniform2f(location, x, y);
     }
 
+    public void setVec2_GUI(String name, float x, float y) {
+        int location = glGetUniformLocation(shaderGUI, name);
+        glUniform2f(location, x, y);
+    }
+
+    public void setCameraPosition(float x, float y) {
+        int location = glGetUniformLocation(shader2D, "u_CameraPosition");
+        glUniform2f(location, x, y);
+    }
+
+    public void setCameraZoom(float zoom) {
+        int location = glGetUniformLocation(shader2D, "u_CameraZoom");
+        glUniform1f(location, zoom);
+    }
+
     public void terminate() {
-        glDeleteProgram(shader);
+        glDeleteProgram(shader2D);
+        glDeleteProgram(shaderGUI);
     }
 }

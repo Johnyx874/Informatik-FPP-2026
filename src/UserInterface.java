@@ -1,3 +1,5 @@
+import sun.misc.Signal;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -11,6 +13,16 @@ public class UserInterface {
 
         renderer = new RendererGUI(window, shader);
 
+    }
+
+    public SignalLight createSignalLight(String name, float x, float y, float scale, String texPath) {
+
+        SignalLight obj =
+                new SignalLight(name, x, y, scale, texPath);
+
+        objects.add(obj);
+
+        return obj;
     }
 
     public Button createButton(String name, float x, float y, float width, float height, String texPath) {
@@ -37,6 +49,12 @@ public class UserInterface {
         Event.middleButtonPressed = false;
 
 
+        for (ObjectGUI obj : objects) {
+            if (obj instanceof SignalLight) {
+                obj.update();
+            }
+        }
+
         for (Button button : buttons) {
 
             button.switchToNormal();
@@ -49,19 +67,21 @@ public class UserInterface {
 
                 button.switchToPressed();
 
-                if (button.name.equals("Left Button")) {
-                    Event.leftButtonPressed = true;
+                if (input.mouse.leftClicked(button)) {
+                    Event.playerHasGravity = !Event.playerHasGravity;
                 }
-                else if (button.name.equals("Right Button")) {
-                    Event.rightButtonPressed = true;
-                }
-                else if (button.name.equals("Middle Button")) {
-                    Event.middleButtonPressed = true;
+
+                switch (button.name) {
+                    case "Left Button" -> Event.leftButtonPressed = true;
+                    case "Right Button" -> Event.rightButtonPressed = true;
+                    case "Middle Button" -> Event.middleButtonPressed = true;
                 }
 
             }
 
         }
+
+
     }
 
     public void render() {

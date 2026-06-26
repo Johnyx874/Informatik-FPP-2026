@@ -23,6 +23,7 @@ public class Player extends Entity {
 
         texture = animation.getIdle();
         velocity.x = 0;
+        if (!Event.playerHasGravity) { velocity.y = 0; }
 
         if (input.pressed(GLFW_KEY_A)) {
             velocity.x = -movementSpeed;
@@ -32,11 +33,13 @@ public class Player extends Entity {
             velocity.x = movementSpeed;
             texture = animation.getRight();
         }
-        /*
-        if (isGrounded && input.pressed(GLFW_KEY_W)) {
-            velocity.y -= movementSpeed;
+        if (input.pressed(GLFW_KEY_W) && !Event.playerHasGravity) {
+            velocity.y = -movementSpeed;
         }
-        */
+        if (input.pressed(GLFW_KEY_S) && !Event.playerHasGravity) {
+            velocity.y = movementSpeed;
+        }
+
         if (isGrounded && input.clicked(GLFW_KEY_SPACE)) {
             velocity.y -= movementSpeed;
         }

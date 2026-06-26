@@ -7,7 +7,7 @@ public class Main {
 
         Window window = new Window(1280, 720);
         Shader shader = new Shader();
-        Camera2D camera = new Camera2D(0, 0);
+        Camera2D camera = new Camera2D(0, 0, window.width, window.height);
 
         Scene scene = new Scene(1000f, window, shader, camera);
         UserInterface userInterface = new UserInterface(window, shader);
@@ -29,12 +29,13 @@ public class Main {
                                 false, 1000, 50);
 
 
-        userInterface.createButton("Left Button", 50, 300, 100, 100, "./assets/button");
+        //userInterface.createButton("Left Button", 50, 300, 100, 100, "./assets/button");
 
         userInterface.createButton("Right Button", 1150, 300, 100, 100, "./assets/button");
 
-        userInterface.createButton("Middle Button", 540, 600, 100, 100, "./assets/button");
+        //userInterface.createButton("Middle Button", 540, 600, 100, 100, "./assets/button");
 
+        userInterface.createSignalLight("Gravity Indicator", 1168, 225, 4, "./assets/led_on.png");
 
         long lastTime = System.nanoTime();
 
@@ -62,6 +63,14 @@ public class Main {
             scene.applyGravity(deltaTime);
 
             Purpur.update(input, deltaTime);
+
+            //Purpur.position.x = input.mouse.position.x;
+            //Purpur.position.y = input.mouse.position.y;
+
+            Log.print("Purpur X: " + Purpur.position.x + "; Purpur Y: " + Purpur.position.y);
+
+            Log.print("Maus X: " + input.mouse.position.x + "; Maus Y: " + input.mouse.position.y);
+
             scene.updateObjects(deltaTime);
 
             scene.updateCollision();

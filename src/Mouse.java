@@ -96,8 +96,15 @@ public class Mouse {
         screenPos.x = (float) mouseX[0];
         screenPos.y = (float) mouseY[0];
 
-        position.x = screenPos.x + camera.position.x;
-        position.y = screenPos.y + camera.position.y;
+        //position.x = (screenPos.x + camera.position.x) * (1f / camera.zoom);
+        //position.y = (screenPos.y + camera.position.y) * (1f / camera.zoom);
+
+        float centerX = camera.width / 2f;
+        float centerY = camera.height / 2f;
+
+        position.x = (screenPos.x - centerX) / camera.zoom + camera.position.x;
+        position.y = (screenPos.y - centerY) / camera.zoom + camera.position.y;
+
 
         leftPressed =
                 glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT)

@@ -23,6 +23,13 @@ public class Animation {
         textures.set(3, new Texture(filename));
     }
 
+    void assignOn(String filename) {
+        textures.set(4, new Texture(filename));
+    }
+    void assignOff(String filename) {
+        textures.set(5, new Texture(filename));
+    }
+
     Texture getIdle() {
         return textures.get(0);
     }
@@ -34,6 +41,13 @@ public class Animation {
     }
     Texture getJump() {
         return textures.get(3);
+    }
+
+    Texture getOn() {
+        return textures.get(4);
+    }
+    Texture getOff() {
+        return textures.get(5);
     }
 
     void setTexture(int x, String filename) {
@@ -52,7 +66,7 @@ public class Animation {
         if (timer >= 1.0f) {
             timer -= 1.0f;
 
-            Log.print("1 Second");
+            //Log.print("1 Second");
         }
 
     }

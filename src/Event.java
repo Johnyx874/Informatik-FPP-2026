@@ -4,6 +4,7 @@ public class Event {
     static boolean rightButtonPressed = false;
     static boolean middleButtonPressed = false;
 
+    static boolean playerHasGravity = true;
 
 
 }

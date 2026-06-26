@@ -80,7 +80,27 @@ public class Scene {
 
     public void applyGravity(float deltaTime) {
         for (PhysicsObject obj : physicsObjects) {
-            if (obj.isDynamic && !obj.isGrounded) {
+
+            if (obj.position.y >= 1000) {
+                if (obj instanceof Player && Event.playerHasGravity) {
+                    obj.isGrounded = true;
+                    obj.position.y = 1000;
+                    obj.velocity.y = 0;
+                }
+                else if (!(obj instanceof Player)) {
+                    obj.isGrounded = true;
+                    obj.position.y = 1000;
+                    obj.velocity.y = 0;
+                }
+            }
+
+            if (obj instanceof Player) {
+                if (Event.playerHasGravity && !obj.isGrounded) {
+                    obj.velocity.y += gravity * deltaTime;
+                }
+            }
+
+            else if (obj.isDynamic && !obj.isGrounded) {
                 obj.velocity.y += gravity * deltaTime;
             }
         }
@@ -100,7 +120,6 @@ public class Scene {
     }
 
     public void render() {
-
         renderer.renderObject(allObjects);
     }
 

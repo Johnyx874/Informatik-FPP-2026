@@ -26,22 +26,23 @@ public class Renderer2D {
 
     public void renderObject(Object2D object) {
 
-        // Position relative to camera
-        Vector2 camPos = camera.worldToCamera(object.position);
-
         // Parameters to send to shader
-        float renderX = camPos.x;
-        float renderY = camPos.y;
+        float renderX = object.position.x;
+        float renderY = object.position.y;
 
-        shader.bind();
+        shader.bind2D();
 
             object.texture.bind();
 
             glBindVertexArray(object.vao);
 
-                shader.setVec2("u_ScreenSize", window.width, window.height);
+                shader.setVec2_2D("u_ScreenSize", window.width, window.height);
 
-                shader.setVec2("u_Position", renderX, renderY);
+                shader.setVec2_2D("u_Position", renderX, renderY);
+
+                shader.setCameraPosition(camera.position.x, camera.position.y);
+
+                shader.setCameraZoom(camera.zoom);
 
                 glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 

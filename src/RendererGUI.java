@@ -28,21 +28,21 @@ public class RendererGUI {
         float renderX = object.position.x;
         float renderY = object.position.y;
 
-        shader.bind();
+        shader.bindGUI();
 
-        object.texture.bind();
+            object.texture.bind();
 
-        glBindVertexArray(object.vao);
+                glBindVertexArray(object.vao);
 
-        shader.setVec2("u_ScreenSize", window.width, window.height);
+                shader.setVec2_GUI("u_ScreenSize", window.width, window.height);
 
-        shader.setVec2("u_Position", renderX, renderY);
+                shader.setVec2_GUI("u_Position", renderX, renderY);
 
-        glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+                glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 
-        glBindVertexArray(0);
+            glBindVertexArray(0);
 
-        object.texture.unbind();
+            object.texture.unbind();
 
         shader.unbind();
     }
