@@ -9,7 +9,7 @@ public class Shader {
     String vertexShaderGUI;
     String fragmentShader;
 
-    public Shader() {
+    public Shader(Window window) {
 
         vertexShader2D =
                 "#version 330 core\n" +
@@ -95,20 +95,18 @@ public class Shader {
 
         shader2D = createShader(vertexShader2D, fragmentShader);
 
-        glUseProgram(shader2D);
-
-        int location = glGetUniformLocation(shader2D, "u_Texture");
-        glUniform1i(location, 0);
+        bind2D();
+        setVec2_2D("u_ScreenSize", window.width, window.height);
+        unbind();
 
         Log.print("Shader 2D created!");
 
 
         shaderGUI = createShader(vertexShaderGUI, fragmentShader);
 
-        glUseProgram(shaderGUI);
-
-        int locationGUI = glGetUniformLocation(shaderGUI, "u_Texture");
-        glUniform1i(locationGUI, 0);
+        bindGUI();
+        setVec2_GUI("u_ScreenSize", window.width, window.height);
+        unbind();
 
         Log.print("Shader GUI created!");
 

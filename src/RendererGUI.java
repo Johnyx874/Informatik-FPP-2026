@@ -34,8 +34,6 @@ public class RendererGUI {
 
                 glBindVertexArray(object.vao);
 
-                shader.setVec2_GUI("u_ScreenSize", window.width, window.height);
-
                 shader.setVec2_GUI("u_Position", renderX, renderY);
 
                 glDrawArrays(GL_TRIANGLE_FAN, 0, 4);

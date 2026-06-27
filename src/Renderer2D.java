@@ -36,8 +36,6 @@ public class Renderer2D {
 
             glBindVertexArray(object.vao);
 
-                shader.setVec2_2D("u_ScreenSize", window.width, window.height);
-
                 shader.setVec2_2D("u_Position", renderX, renderY);
 
                 shader.setCameraPosition(camera.position.x, camera.position.y);

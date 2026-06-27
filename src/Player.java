@@ -2,8 +2,11 @@ import static org.lwjgl.glfw.GLFW.*;
 
 public class Player extends Entity {
 
+    Animation animationLeft = new Animation(4, 1f);
+    Animation animationRight = new Animation(4, 1f);
 
-    Animation animation = new Animation();
+    Texture idleTexture;
+    Texture jumpTexture;
 
     float movementSpeed;
 
@@ -11,27 +14,38 @@ public class Player extends Entity {
 
         super("Purpur", x, y, 100, 100, "./assets/purpur/purpur.png");
 
-        animation.assignIdle("./assets/purpur/purpur_idle.png");
-        animation.assignLeft("./assets/purpur/purpur_left.png");
-        animation.assignRight("./assets/purpur/purpur_right.png");
-        animation.assignJump("./assets/purpur/purpur_jump.png");
+        idleTexture = new Texture("./assets/purpur/purpur_idle.png");
+        jumpTexture = new Texture("./assets/purpur/purpur_jump.png");
+
+        String path = "./assets/animation test/";
+        animationLeft.addSlide(path + "slide_1.png");
+        animationLeft.addSlide(path + "slide_2.png");
+        animationLeft.addSlide(path + "slide_3.png");
+        animationLeft.addSlide(path + "slide_4.png");
+
+        animationRight.addSlide(path + "slide_1.png");
+        animationRight.addSlide(path + "slide_2.png");
+        animationRight.addSlide(path + "slide_3.png");
+        animationRight.addSlide(path + "slide_4.png");
 
         movementSpeed = 500f;
     }
 
-    private void move(Input input) {
+    private void move(Input input, float deltaTime) {
 
-        texture = animation.getIdle();
+        texture = idleTexture;
         velocity.x = 0;
         if (!Event.playerHasGravity) { velocity.y = 0; }
 
         if (input.pressed(GLFW_KEY_A)) {
             velocity.x = -movementSpeed;
-            texture = animation.getLeft();
+            if (input.clicked(GLFW_KEY_A)) animationLeft.resetState();
+            texture = animationLeft.update(deltaTime);
         }
         if (input.pressed(GLFW_KEY_D)) {
             velocity.x = movementSpeed;
-            texture = animation.getRight();
+            if (input.clicked(GLFW_KEY_D)) animationRight.resetState();
+            texture = animationRight.update(deltaTime);
         }
         if (input.pressed(GLFW_KEY_W) && !Event.playerHasGravity) {
             velocity.y = -movementSpeed;
@@ -44,7 +58,7 @@ public class Player extends Entity {
             velocity.y -= movementSpeed;
         }
 
-        if (!isGrounded) { texture = animation.getJump(); }
+        if (!isGrounded) { texture = jumpTexture; }
 
     }
 
@@ -77,7 +91,7 @@ public class Player extends Entity {
 
     public void update(Input input, float deltaTime) {
 
-        move(input);
+        move(input, deltaTime);
 
         //buttonMove();
 
@@ -98,7 +112,9 @@ public class Player extends Entity {
 
         checkDragged(input);
 
-        animation.update(deltaTime);
+        //animation.update(deltaTime);
+
+        //this.texture = animation.iterateFacingLeft(deltaTime);
 
         super.update(deltaTime);
 

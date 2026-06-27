@@ -12,10 +12,10 @@ public class Camera2D {
 
     public float zoom;
 
-    public Camera2D(float x, float y, float width, float height) {
+    public Camera2D(float x, float y, Window window) {
         this.position = new Vector2(x, y);
-        this.width = width;
-        this.height = height;
+        this.width = window.width;
+        this.height = window.height;
         this.moveSpeed = 500f;
         this.zoom = 1;
         Log.print("Camera2D created!");

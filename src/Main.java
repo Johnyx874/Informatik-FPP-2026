@@ -6,8 +6,8 @@ public class Main {
     public static void main(String[] args) {
 
         Window window = new Window(1280, 720);
-        Shader shader = new Shader();
-        Camera2D camera = new Camera2D(0, 0, window.width, window.height);
+        Shader shader = new Shader(window);
+        Camera2D camera = new Camera2D(1280/2f, 720/2f, window);
 
         Scene scene = new Scene(1000f, window, shader, camera);
         UserInterface userInterface = new UserInterface(window, shader);
@@ -63,13 +63,6 @@ public class Main {
             scene.applyGravity(deltaTime);
 
             Purpur.update(input, deltaTime);
-
-            //Purpur.position.x = input.mouse.position.x;
-            //Purpur.position.y = input.mouse.position.y;
-
-            Log.print("Purpur X: " + Purpur.position.x + "; Purpur Y: " + Purpur.position.y);
-
-            Log.print("Maus X: " + input.mouse.position.x + "; Maus Y: " + input.mouse.position.y);
 
             scene.updateObjects(deltaTime);
 
