@@ -13,26 +13,10 @@ public class Main {
         UserInterface userInterface = new UserInterface(window, shader);
         Input input = new Input();
 
-
-
         // BACKGROUND
-            scene.createObject2D("Grid",-1802,901, 1.0f, "./assets/grid.png");
-            scene.createObject2D("Grid",-901,901, 1.0f, "./assets/grid.png");
-            scene.createObject2D("Grid",0,901, 1.0f, "./assets/grid.png");
-            scene.createObject2D("Grid",901,901, 1.0f, "./assets/grid.png");
-            scene.createObject2D("Grid",1802,901, 1.0f, "./assets/grid.png");
+            scene.createObject2D("Big Grid",-2500 + 770/2f,-2500 + 450/2f, 1.0f, "./assets/big_grid.png");
+        // ###
 
-            scene.createObject2D("Grid",-1802,0, 1.0f, "./assets/grid.png");
-            scene.createObject2D("Grid",-901,0, 1.0f, "./assets/grid.png");
-            scene.createObject2D("Grid",0,0, 1.0f, "./assets/grid.png");
-            scene.createObject2D("Grid",901,0, 1.0f, "./assets/grid.png");
-            scene.createObject2D("Grid",1802,0, 1.0f, "./assets/grid.png");
-
-            scene.createObject2D("Grid",-1802,-901, 1.0f, "./assets/grid.png");
-            scene.createObject2D("Grid",-901,-901, 1.0f, "./assets/grid.png");
-            scene.createObject2D("Grid",0,-901, 1.0f, "./assets/grid.png");
-            scene.createObject2D("Grid",901,-901, 1.0f, "./assets/grid.png");
-            scene.createObject2D("Grid",1802,-901, 1.0f, "./assets/grid.png");
 
         // STATION
             scene.createPhysicsObject("High Left Box", 0,230, 230,1, "./assets/box.png",
@@ -45,15 +29,35 @@ public class Main {
         // ###
 
 
-        // EYESAAC
+        // EYESAAC ISLAND
             scene.createPhysicsObject("Eyesaac Island", 1400,500, 500,50, "./assets/metal_ground.png",
                     false, 500, 50);
-            scene.createPhysicsObject("Left Fence", 1400,393, 45,107, "./assets/metal_fence_left.png",
+            scene.createPhysicsObject("Left Fence", 1400,500-107, 45,107, "./assets/metal_fence_left.png",
                     false, 45, 107);
-            scene.createPhysicsObject("Right Fence", 1855,393, 45,107, "./assets/metal_fence_right.png",
+            scene.createPhysicsObject("Right Fence", 1400+500-45,500-107, 45,107, "./assets/metal_fence_right.png",
                     false, 45, 107);
         // ###
 
+
+        // BOX ISLAND
+            scene.createPhysicsObject("Box Island", -1200,300, 500,50, "./assets/metal_ground.png",
+                    false, 500, 50);
+
+            scene.createPhysicsObject("Small Box", -1000, 0, 100, 100, "./assets/box.png",
+                    true, 100, 100);
+            scene.createPhysicsObject("Small Box", -980, 0, 70, 70, "./assets/box.png",
+                    true, 70, 70);
+            scene.createPhysicsObject("Small Box", -870, 0, 50, 50, "./assets/box.png",
+                    true, 50, 50);
+        // ###
+
+
+        // MECH ISLAND
+            scene.createPhysicsObject("Mech Island", -800,1000, 500,50, "./assets/metal_ground.png",
+                    false, 500, 50);
+            scene.createPhysicsObject("Mech", -800,650, 217.5f,187.5f, "./assets/mech/mech.png",
+                    true, 217.5f, 187.5f);
+        // ###
 
         // PURPUR
             Player Purpur = new Player(50, 50);
@@ -61,24 +65,15 @@ public class Main {
         // ###
 
 
-        // ENEMY
+        // ENEMY EYESAAC
             Enemy Eyesaac = new Enemy(1700, 300, Purpur, 100, 100,
                     "./assets/eyesaac/eyesaac.png", "./assets/eyesaac/eyesaac_pursue.png");
             scene.addPhysicsObject(Eyesaac);
-        // ###aaaa
+        // ###
 
 
-        //scene.createPhysicsObject("Small Box", 0,0,100,100, "./assets/placeholder.png",
-        //                        true, 100, 100);
-
-
-
-
-        //userInterface.createButton("Left Button", 50, 300, 100, 100, "./assets/button");
 
         userInterface.createButton("Right Button", 1150, 300, 100, 100, "./assets/button");
-
-        //userInterface.createButton("Middle Button", 540, 600, 100, 100, "./assets/button");
 
         userInterface.createSignalLight("Gravity Indicator", 1168, 225, 4, "./assets/led_on.png");
 
