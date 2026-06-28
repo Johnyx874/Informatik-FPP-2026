@@ -17,9 +17,11 @@ public class RendererGUI {
     }
 
     public void renderGUI(ArrayList<ObjectGUI> objects) {
+        shader.bindGUI();
         for (ObjectGUI obj : objects) {
             renderGUI(obj);
         }
+        shader.unbind();
     }
 
     public void renderGUI(ObjectGUI object) {
@@ -28,21 +30,14 @@ public class RendererGUI {
         float renderX = object.position.x;
         float renderY = object.position.y;
 
-        shader.bindGUI();
+        object.texture.bind();
 
-            object.texture.bind();
+        glBindVertexArray(object.vao);
 
-                glBindVertexArray(object.vao);
+        shader.setVec2_GUI("u_Position", renderX, renderY);
 
-                shader.setVec2_GUI("u_Position", renderX, renderY);
+        glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 
-                glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
-
-            glBindVertexArray(0);
-
-            object.texture.unbind();
-
-        shader.unbind();
     }
 
 }

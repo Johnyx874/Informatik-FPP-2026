@@ -2,33 +2,40 @@ import static org.lwjgl.glfw.GLFW.*;
 
 public class Player extends Entity {
 
-    Animation animationLeft = new Animation(4, 1f);
-    Animation animationRight = new Animation(4, 1f);
+    Animation animationLeft = new Animation(4, 0.5f);
+    Animation animationRight = new Animation(4, 0.5f);
 
     Texture idleTexture;
-    Texture jumpTexture;
+    Texture jumpIdleTexture;
+    Texture jumpLeftTexture;
+    Texture jumpRightTexture;
 
     float movementSpeed;
+    float jumpStrength;
 
     public Player(float x, float y) {
 
         super("Purpur", x, y, 100, 100, "./assets/purpur/purpur.png");
 
-        idleTexture = new Texture("./assets/purpur/purpur_idle.png");
-        jumpTexture = new Texture("./assets/purpur/purpur_jump.png");
+        String path = "./assets/purpur/";
 
-        String path = "./assets/animation test/";
-        animationLeft.addSlide(path + "slide_1.png");
-        animationLeft.addSlide(path + "slide_2.png");
-        animationLeft.addSlide(path + "slide_3.png");
-        animationLeft.addSlide(path + "slide_4.png");
+        idleTexture = new Texture(path + "purpur_idle.png");
+        jumpIdleTexture = new Texture(path + "jump/idle.png");
+        jumpLeftTexture = new Texture(path + "jump/left.png");
+        jumpRightTexture =  new Texture(path + "jump/right.png");
 
-        animationRight.addSlide(path + "slide_1.png");
-        animationRight.addSlide(path + "slide_2.png");
-        animationRight.addSlide(path + "slide_3.png");
-        animationRight.addSlide(path + "slide_4.png");
+        animationLeft.addSlide(path + "walk_left/slide_1.png");
+        animationLeft.addSlide(path + "walk_left/slide_2.png");
+        animationLeft.addSlide(path + "walk_left/slide_3.png");
+        animationLeft.addSlide(path + "walk_left/slide_2.png");
 
-        movementSpeed = 500f;
+        animationRight.addSlide(path + "walk_right/slide_1.png");
+        animationRight.addSlide(path + "walk_right/slide_2.png");
+        animationRight.addSlide(path + "walk_right/slide_3.png");
+        animationRight.addSlide(path + "walk_right/slide_2.png");
+
+        movementSpeed = 300;
+        jumpStrength = 500f;
     }
 
     private void move(Input input, float deltaTime) {
@@ -55,10 +62,12 @@ public class Player extends Entity {
         }
 
         if (isGrounded && input.clicked(GLFW_KEY_SPACE)) {
-            velocity.y -= movementSpeed;
+            velocity.y -= jumpStrength;
         }
 
-        if (!isGrounded) { texture = jumpTexture; }
+        if (!isGrounded) { texture = jumpIdleTexture; }
+        if (!isGrounded && input.pressed(GLFW_KEY_A)) { texture = jumpLeftTexture; }
+        if (!isGrounded && input.pressed(GLFW_KEY_D)) { texture = jumpRightTexture; }
 
     }
 

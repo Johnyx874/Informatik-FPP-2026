@@ -12,12 +12,12 @@ public class Camera2D {
 
     public float zoom;
 
-    public Camera2D(float x, float y, Window window) {
+    public Camera2D(float zoom, float x, float y, Window window) {
         this.position = new Vector2(x, y);
         this.width = window.width;
         this.height = window.height;
         this.moveSpeed = 500f;
-        this.zoom = 1;
+        this.zoom = zoom;
         Log.print("Camera2D created!");
     }
 
@@ -42,6 +42,7 @@ public class Camera2D {
 
 
     public void update(Input input, float deltaTime) {
+
         if (input.pressed(GLFW_KEY_LEFT)) {
             position.x -= moveSpeed * deltaTime;
         }

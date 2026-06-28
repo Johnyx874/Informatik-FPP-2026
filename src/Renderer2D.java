@@ -19,9 +19,16 @@ public class Renderer2D {
     }
 
     public void renderObject(ArrayList<Object2D> objects) {
+        shader.bind2D();
+
+        shader.setCameraPosition(camera.position.x, camera.position.y);
+        shader.setCameraZoom(camera.zoom);
+
         for (Object2D obj : objects) {
             renderObject(obj);
         }
+
+        shader.unbind();
     }
 
     public void renderObject(Object2D object) {
@@ -30,25 +37,19 @@ public class Renderer2D {
         float renderX = object.position.x;
         float renderY = object.position.y;
 
-        shader.bind2D();
+        object.texture.bind();
 
-            object.texture.bind();
+        glBindVertexArray(object.vao);
 
-            glBindVertexArray(object.vao);
+            shader.setVec2_2D("u_Position", renderX, renderY);
 
-                shader.setVec2_2D("u_Position", renderX, renderY);
+            glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 
-                shader.setCameraPosition(camera.position.x, camera.position.y);
+        glBindVertexArray(0);
 
-                shader.setCameraZoom(camera.zoom);
+        object.texture.unbind();
 
-                glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 
-            glBindVertexArray(0);
-
-            object.texture.unbind();
-
-        shader.unbind();
     }
 
 }

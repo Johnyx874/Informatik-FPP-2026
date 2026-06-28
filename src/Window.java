@@ -19,7 +19,7 @@ public class Window {
         }
 
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
-        window = glfwCreateWindow(width, height, "LWJGL Test Program", 0, 0);
+        window = glfwCreateWindow(width, height, "Purpur's World", 0, 0);
         if (window == 0) {
             throw new IllegalStateException("Failed to create window!");
         }
