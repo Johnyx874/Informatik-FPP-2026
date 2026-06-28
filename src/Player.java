@@ -2,8 +2,8 @@ import static org.lwjgl.glfw.GLFW.*;
 
 public class Player extends Entity {
 
-    Animation animationLeft = new Animation(4, 0.5f);
-    Animation animationRight = new Animation(4, 0.5f);
+    Animation animationLeft = new Animation(3, 0.5f);
+    Animation animationRight = new Animation(3, 0.5f);
 
     Texture idleTexture;
     Texture jumpIdleTexture;

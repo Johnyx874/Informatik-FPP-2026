@@ -41,14 +41,9 @@ public class Renderer2D {
 
         glBindVertexArray(object.vao);
 
-            shader.setVec2_2D("u_Position", renderX, renderY);
+        shader.setVec2_2D("u_Position", renderX, renderY);
 
-            glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
-
-        glBindVertexArray(0);
-
-        object.texture.unbind();
-
+        glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 
     }
 

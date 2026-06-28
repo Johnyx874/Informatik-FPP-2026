@@ -85,7 +85,6 @@ public class UserInterface {
     }
 
     public void render() {
-
         renderer.renderGUI(objects);
     }
 }

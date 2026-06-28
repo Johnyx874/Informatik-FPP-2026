@@ -52,8 +52,6 @@ public class Main {
                     false, 45, 107);
             scene.createPhysicsObject("Right Fence", 1855,393, 45,107, "./assets/metal_fence_right.png",
                     false, 45, 107);
-            scene.createPhysicsObject("Eyesaac", 1700, 300, 100, 100, "./assets/eyesaac.png",
-                    true, 100, 100);
         // ###
 
 
@@ -61,6 +59,13 @@ public class Main {
             Player Purpur = new Player(50, 50);
             scene.addPhysicsObject(Purpur);
         // ###
+
+
+        // ENEMY
+            Enemy Eyesaac = new Enemy(1700, 300, Purpur, 100, 100,
+                    "./assets/eyesaac/eyesaac.png", "./assets/eyesaac/eyesaac_pursue.png");
+            scene.addPhysicsObject(Eyesaac);
+        // ###aaaa
 
 
         //scene.createPhysicsObject("Small Box", 0,0,100,100, "./assets/placeholder.png",
@@ -96,6 +101,8 @@ public class Main {
             scene.applyGravity(deltaTime);
 
             Purpur.update(input, deltaTime);
+
+            Eyesaac.update(input, deltaTime);
 
             scene.updateObjects(deltaTime);
 
