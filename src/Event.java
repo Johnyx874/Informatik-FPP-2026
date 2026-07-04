@@ -6,5 +6,7 @@ public class Event {
 
     static boolean playerHasGravity = true;
 
+    static Vector2 playerPosition = new Vector2();
+
 
 }

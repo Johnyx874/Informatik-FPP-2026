@@ -90,7 +90,12 @@ public class Shader {
                 "\n" +
                 "void main()\n" +
                 "{\n" +
-                "    FragColor = texture(u_Texture, vUV);\n" +
+                "    float dx = abs(1280/2 - gl_FragCoord.x);" +
+                "    float dy = abs(720/2 - gl_FragCoord.y);" +
+                "    float distance = sqrt(dx * dx + dy * dy);" +
+                "    float normalizedAlpha = 1 - (distance / 400);" +
+                "    FragColor = texture(u_Texture, vUV);" +
+                "    if (FragColor.a == 1) {FragColor.a = normalizedAlpha;}" +
                 "}\n";
 
         shader2D = createShader(vertexShader2D, fragmentShader);
