@@ -8,6 +8,7 @@ public class Shader {
     String vertexShader2D;
     String vertexShaderGUI;
     String fragmentShader;
+    String fragmentShaderLighting;
 
     public Shader(Window window) {
 
@@ -80,6 +81,20 @@ public class Shader {
                 "}\n";
 
         fragmentShader =
+                "#version 330 core\n" +
+                        "\n" +
+                        "in vec2 vUV;\n" +
+                        "\n" +
+                        "uniform sampler2D u_Texture;\n" +
+                        "\n" +
+                        "out vec4 FragColor;\n" +
+                        "\n" +
+                        "void main()\n" +
+                        "{\n" +
+                        "    FragColor = texture(u_Texture, vUV);" +
+                        "}\n";
+
+        fragmentShaderLighting =
                 "#version 330 core\n" +
                 "\n" +
                 "in vec2 vUV;\n" +
