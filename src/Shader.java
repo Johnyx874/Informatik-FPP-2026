@@ -8,6 +8,7 @@ public class Shader {
     String vertexShader2D;
     String vertexShaderGUI;
     String fragmentShader;
+    String fragmentShaderLighting;
 
     public Shader(Window window) {
 
@@ -81,6 +82,20 @@ public class Shader {
 
         fragmentShader =
                 "#version 330 core\n" +
+                        "\n" +
+                        "in vec2 vUV;\n" +
+                        "\n" +
+                        "uniform sampler2D u_Texture;\n" +
+                        "\n" +
+                        "out vec4 FragColor;\n" +
+                        "\n" +
+                        "void main()\n" +
+                        "{\n" +
+                        "    FragColor = texture(u_Texture, vUV);" +
+                        "}\n";
+
+        fragmentShaderLighting =
+                "#version 330 core\n" +
                 "\n" +
                 "in vec2 vUV;\n" +
                 "\n" +
@@ -90,7 +105,12 @@ public class Shader {
                 "\n" +
                 "void main()\n" +
                 "{\n" +
-                "    FragColor = texture(u_Texture, vUV);\n" +
+                "    float dx = abs(1280/2 - gl_FragCoord.x);" +
+                "    float dy = abs(720/2 - gl_FragCoord.y);" +
+                "    float distance = sqrt(dx * dx + dy * dy);" +
+                "    float normalizedAlpha = 1 - (distance / 400);" +
+                "    FragColor = texture(u_Texture, vUV);" +
+                "    if (FragColor.a == 1) {FragColor.a = normalizedAlpha;}" +
                 "}\n";
 
         shader2D = createShader(vertexShader2D, fragmentShader);
