@@ -5,6 +5,17 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
+
+        ProcessBuilder pb = new ProcessBuilder(
+                "python/.venv/Scripts/python.exe",
+                "python/plotter_server.py"
+        );
+
+        pb.inheritIO();
+        Process pythonProcess = pb.start();
+
+        ServerCommunicator serverCommunicator = new ServerCommunicator();
+
         Window window = new Window(1280, 720);
         Shader shader = new Shader(window);
         Camera2D camera = new Camera2D(1.5f, 300, -600, window);
@@ -12,8 +23,6 @@ public class Main {
         Scene scene = new Scene(1000f, window, shader, camera);
         UserInterface userInterface = new UserInterface(window, shader);
         Input input = new Input();
-
-        ServerCommunicator serverCommunicator = new ServerCommunicator();
 
         // BACKGROUND
             scene.createObject2D("Big Grid",-2500 + 770/2f,-2500 + 450/2f, 1.0f, "./assets/big_grid.png");
@@ -125,6 +134,8 @@ public class Main {
             glfwSwapBuffers(window.window);
 
         }
+
+        pythonProcess.destroy();
 
         shader.terminate();
 
