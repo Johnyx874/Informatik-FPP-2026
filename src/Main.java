@@ -3,7 +3,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         Window window = new Window(1280, 720);
         Shader shader = new Shader(window);
@@ -12,6 +12,8 @@ public class Main {
         Scene scene = new Scene(1000f, window, shader, camera);
         UserInterface userInterface = new UserInterface(window, shader);
         Input input = new Input();
+
+        ServerCommunicator serverCommunicator = new ServerCommunicator();
 
         // BACKGROUND
             scene.createObject2D("Big Grid",-2500 + 770/2f,-2500 + 450/2f, 1.0f, "./assets/big_grid.png");
@@ -107,6 +109,9 @@ public class Main {
             userInterface.cleanup();
             userInterface.updateObjects(input);
             userInterface.render();
+
+            Log.print("" + deltaTime);
+            serverCommunicator.sendValues(deltaTime);
 
             glfwSwapBuffers(window.window);
 
